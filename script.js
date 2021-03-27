@@ -1,7 +1,7 @@
 var modal = document.querySelector(".modalbox");
 
 // Get the button that opens the modal
-var btn = document.querySelector("#ask");
+var btn = document.querySelector("#openModalBox");
 
 // Get the <span> element that closes the modal
 var span = document.querySelector("#close");

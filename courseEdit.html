@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Course Edit Page</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<script defer src="all.js"></script>
+	<body>
+		<div class="topnav">
+	        <p id=name>Udemy</p>
+	        <a id="home" href=""><i class="fas fa-home"></i>Home</a>
+	        <a id="courses" href=""><i class="fas fa-book-open"></i>Courses</a>
+	        <form id="searchbar">
+	        	<input id="searchbarInput" type="text" name="">
+	        	<button type="submit" name="Search">
+	        		<i class="fas fa-search"></i>
+	        	</button>
+	        </form>
+	        <a id="profile" href=""><i class="fas fa-user"></i>Profile</a>
+	        <a id="mycourses" href=""><i class="fas fa-project-diagram"></i>My Courses</a>
+    	</div>
+    	<div class="container">
+    		<div class="courseEditPageContainer">
+    			<h1>Course Edit: Python Tutorial</h1>
+                <div class="editions">
+                    <div class="newLecture">
+                        <h2>Add New Lecture</h2>
+                        <form>
+                          <div class="form-group">
+                            <label for="exampleFormControlInput1">Course Name</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"> 
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Course Description</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleFormControlInput1">Video Url</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"> 
+                          </div>
+                          <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                    <div class="newAnn">
+                        <h2>Make an Announcement</h2>
+                        <form>
+                          <div class="form-group">
+                            <label for="exampleFormControlInput1">Title</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"> 
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Announcement</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Announce</button>
+                        </form>
+                    </div>
+                </div>
+                
+                
+    			<div class="courseEditLectures">
+                    <h2>Lectures</h2>
+                    <div class="courseEditCard">
+                        <div class="videoImage">
+                            <img src="https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg">
+                        </div>
+                        <div class="lectureDetails">
+                            <h2><a href="">Python Tutorial - 9 Lectures</a></h2>
+                            <h5>Description</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                        </div>
+                        <div class="lectureEditButtons">
+                            <button class="btn-warning btn">Edit</button>
+                            <button class="btn-danger btn">Remove</button>
+                        </div>
+                    </div>
+                    <div class="courseEditCard">
+                        <div class="videoImage">
+                            <img src="https://img.youtube.com/vi/C72WkcUZvco/maxresdefault.jpg">
+                        </div>
+                        <div class="lectureDetails">
+                            <h2><a href="">Web Design - 6 Lectures</a></h2>
+                            <h5>Description</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                        </div>
+                        <div class="lectureEditButtons">
+                            <button class="btn-warning btn">Edit</button>
+                            <button class="btn-danger btn">Remove</button>
+                        </div>
+                        
+                    </div>
+                </div>
+    		</div>
+    	</div>
+    	
+	</body>
+</html>
