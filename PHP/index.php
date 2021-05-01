@@ -1,3 +1,47 @@
+<?php
+include("config.php");
+session_start();
+
+//LOGIN CHECK
+if(isset($_SESSION["LOGGEDIN"]) || $_SESSION["LOGGEDIN"] === true){
+  header("location: home.php");
+  exit;
+}
+
+//AUTHENTICATON
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if(empty($_POST['username']) || empty($_POST['password'])){
+        $errors = 'You must fill the blanks';
+      } 
+      else{
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $username = strtolower($username);
+
+        $query = "	SELECT username AS name
+                    FROM account
+                    WHERE LOWER(username) = '$username' AND password = '$password'";
+    
+        $res = $database->query($query) or die('Error in the query: ' . $database->error);
+        $resData = $res->fetch_assoc();
+    
+        if (strtolower($resData['name']) == $username) {
+            session_start();
+            $_SESSION['password'] = $password;
+            $_SESSION['username'] = $username;
+            $_SESSION['LOGGEDIN'] = true;
+            header('Location: home.php');
+        } else {
+           $errors = "Invalid username or password";
+        }
+    
+        $database->close(); 
+          
+      }	
+}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,8 +53,8 @@
 	<body>
 		<div class="topnav">
 	        <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
-	        <a id="home" href=""><i class="fas fa-home"></i>Home</a>
-	        <a id="courses" href=""><i class="fas fa-book-open"></i>Courses</a>
+	        <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
+            <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
 	        <form id="searchbar">
 	        	<input id="searchbarInput" type="text" name="">
 	        	<button type="submit" name="Search">
@@ -18,7 +62,7 @@
 	        	</button>
 	        </form>
 	        <a id="profile" href=""><i class="fas fa-user"></i>Login</a>
-	        <a id="mycourses" style="display: none" href=""><i class="fas fa-project-diagram"></i>My Courses</a>
+	        <a id="mycourses" style="display: none" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
     	</div>
     	
 		<div class="loginContainer">
@@ -28,25 +72,26 @@
 						<h3>Sign In</h3>
 					</div>
 					<div class="card-body">
-						<form>
+						<form method="POST">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="text" class="form-control" placeholder="username">
+								<input type="text" class="form-control" name="username" placeholder="username">
 								
 							</div>
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
-								<input type="password" class="form-control" placeholder="password">
+								<input type="password" class="form-control" name="password" placeholder="password">
 							</div>
 							<div class="row align-items-center remember">
 								<input type="checkbox">Remember Me
 							</div>
+              <div style="color: red"> <?php echo $errors; ?> &nbsp</div>
 							<div class="form-group">
-								<input type="submit" value="Login" class="login_btn btn float-right">
+								<input type="submit" value="Login"  name="submit" class="login_btn btn float-right">
 							</div>
 						</form>
 					</div>
