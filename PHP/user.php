@@ -464,7 +464,13 @@ else{ //admin
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-            <a id="profile" href="user?id='. $username . '"><i class="fas fa-user"></i>'. $username . '</a>
+            ';
+                    if($username != $pathUsername){
+                        $htmlContainer .= '<a id="profile" href="user?id='. $username . '"><i class="fas fa-user"></i>'. $username . '</a>';
+                    }else{
+                        $htmlContainer .= '<a id="profile" href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a>';
+                    }
+                    $htmlContainer .= '
             <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
         </div>
         <div class="container">

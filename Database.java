@@ -322,17 +322,6 @@ public class Database{
         "('malialtunsoy', 'irmakceliker');");
         System.out.println("follows Table Populated.");
 
-
-
-
-
-
-
-
-
-
-
-
         System.out.println("=====================================================ACCOUNT=====================================================");  
         System.out.printf("%12s |%12s |%12s \n", "username", "password", "email");
         System.out.println("--------------------------------------------------------------------------------------------------------------");

@@ -48,9 +48,7 @@ if($user == $username){$userType = 'User';}
 if($creator == $username){$userType = 'Instructor';}
 if($admin == $username){$userType = 'Admin';}
 
-if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
-
-    $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_url, lecture_count
+$query = "	SELECT course_name, course_desc, course_fee, username, rating, video_url, lecture_count
         FROM course NATURAL JOIN (SELECT course_id, AVG(rate) AS rating FROM rating GROUP BY course_id) AS sub1
         NATURAL JOIN (SELECT course_id, video_url FROM lecture WHERE lecture_index = 1) AS sub2
         NATURAL JOIN (SELECT course_id, COUNT(*) AS lecture_count FROM lecture GROUP BY
@@ -59,6 +57,10 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
     
         $course = $database->query($query) or die('Error in query: ' . $database->error);
         $courseData = $course->fetch_assoc();
+
+if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
+
+    
 
     if(strtolower($ownsData['username']) != $username && $username != $courseData['username']){ //user not own or instructor not own
 
@@ -256,11 +258,69 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
         echo $htmlContainer;
     }
 }
-elseif($userType == 'Instructor'){ //instructor from itself
-    
-}
 elseif($userType == 'Admin'){ //instructor from itself
+    $htmlContainer = '<!DOCTYPE html>
+        <html>
+            <head>
+                <title>Course Page</title>
+                <link rel="stylesheet" type="text/css" href="style.css" />
+                <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+                <script defer src="all.js"></script>
+            <body>
+                <div class="topnav">
+                    <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
+                    <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
+                    <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+                    <form id="searchbar">
+                        <input id="searchbarInput" type="text" name="">
+                        <button type="submit" name="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                    <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . '</a>
+                    <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
+                </div>
+                <div class="container">
+                    <div class="courseContainer">
+                        <div class="leftCourseContainer">
+                            
+                            <iframe class="courseVideo" width="560" height="315" src="https://www.youtube.com/embed/' . $courseData['video_url'] . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <h3>Course Description</h3>
+                            <p>' . $courseData['course_desc'] . '</p>
+                        </div>
+                        <div class="rightCourseContainer">
+                            <h1>' . $courseData['course_name'] . '</h1>
+                            <h4><a href="user?id=' . $courseData['username'] . '">' . $courseData['username'] . '</a></h4>
+                            <p>' . $courseData['lecture_count'] . ' Lectures</p>';
+                            for($i = 0; $i < 4; $i++){
+                                if($i < $courseData['rating']){
+                                    $htmlContainer .= '<span class="fa fa-star checked"></span>';
+                                }
+                                else{
+                                    $htmlContainer .= '<span class="fa fa-star"></span>';
+                                }
+                            }
+                            $htmlContainer .= '<h4 id="price">$25,99</h4>
+                            <form class="form-inline">
+					  <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+					  <div class="input-group mb-2 mr-sm-2">
+					    <div class="input-group-prepend">
+					      <div class="input-group-text">$</div>
+					    </div>
+					    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Discount">
+					  </div>
 
+					  <button type="submit" class="btn btn-primary mb-2">Offer</button>
+					</form>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </body>
+        </html>';
+        echo $htmlContainer;
 }
 
 
