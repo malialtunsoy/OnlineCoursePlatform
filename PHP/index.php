@@ -53,15 +53,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	<body>
 		<div class="topnav">
 	        <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
-	        <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
-            <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
 	        <form id="searchbar">
 	        	<input id="searchbarInput" type="text" name="">
 	        	<button type="submit" name="Search">
 	        		<i class="fas fa-search"></i>
 	        	</button>
 	        </form>
-	        <a id="profile" href=""><i class="fas fa-user"></i>Login</a>
+	        <a id="profile" href="signup"><i class="fas fa-user"></i>Sign Up</a>
 	        <a id="mycourses" style="display: none" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
     	</div>
     	
@@ -97,7 +95,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					</div>
 					<div class="card-footer">
 						<div class="d-flex justify-content-center links">
-							Don't have an account?<a href="#">Sign Up</a>
+							Don't have an account?<a href="signup">Sign Up</a>
 						</div>
 						<div class="d-flex justify-content-center">
 							<a href="#">Forgot your password?</a>

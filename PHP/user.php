@@ -242,7 +242,7 @@ elseif($userType == 'Instructor' && $username == $pathUsername){ //instructor fr
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-            <a id="profile" href="user?id='. $username . '"><i class="fas fa-user"></i>'. $username . '</a>
+            <a id="profile" href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
             <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
         </div>
         <div class="container">

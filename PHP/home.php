@@ -37,7 +37,7 @@ $username = $_SESSION['username'];
 	        <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
     	</div>
     	<div class="container">
-    		<h1>Welcome to Udemy</h1>
+    		<h1>Welcome to Wan-Shi</h1>
     	</div>
     	
 	</body>
