@@ -79,6 +79,7 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                     <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
                     <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
                     <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+                    <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
                     <form id="searchbar">
                         <input id="searchbarInput" type="text" name="">
                         <button type="submit" name="Search">
@@ -148,6 +149,7 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                     <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
                     <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
                     <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+                    <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
                     <form id="searchbar">
                         <input id="searchbarInput" type="text" name="">
                         <button type="submit" name="Search">
@@ -203,12 +205,14 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                             ';
 
                             if($username == $courseData['username']){//course creator
-                                $htmlContainer .= '<button class="btn btn-warning"><a style="text-decoration: none; color: white;" href="courseEdit?courseID=' . $courseData['course_id'] .'">Edit Course</a></button>';     
+                                $htmlContainer .= '<button class="btn btn-warning"><a style="text-decoration: none; color: white;" href="courseEdit?courseID=' . $courseData['course_id'] .'">Edit Course</a></button>
+                                <p></p>
+                                <a href="QandA?courseID=' . $courseData['course_id'] . '"><button class="btn btn-info">Go to Q&A Page</button></a>';     
                             }
                             else{//user
                                 $htmlContainer .= '<button id="openModalBox" class="btn btn-danger">Refund Course</button>
                                 <p></p>
-                                <button class="btn btn-info">Go to Q&A Page</button>';
+                                <a href="QandA?courseID=' . $courseData['course_id'] . '"><button class="btn btn-info">Go to Q&A Page</button></a>';
                             }
 
                             $htmlContainer .= '
@@ -258,7 +262,7 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
         echo $htmlContainer;
     }
 }
-elseif($userType == 'Admin'){ //instructor from itself
+elseif($userType == 'Admin'){ //admin
     $htmlContainer = '<!DOCTYPE html>
         <html>
             <head>
@@ -272,6 +276,7 @@ elseif($userType == 'Admin'){ //instructor from itself
                     <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
                     <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
                     <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+                    <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
                     <form id="searchbar">
                         <input id="searchbarInput" type="text" name="">
                         <button type="submit" name="Search">

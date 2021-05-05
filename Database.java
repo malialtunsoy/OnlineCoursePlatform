@@ -169,7 +169,7 @@ public class Database{
             "answer VARCHAR(1000),"+
             "question_time TIME,"+
             "answer_time TIME,"+
-            "PRIMARY KEY (course_id, question_time, answer_time, username),"+
+            "PRIMARY KEY (course_id, question_time, username),"+
             "FOREIGN KEY (username) REFERENCES user(username),"+
             "FOREIGN KEY (course_id) REFERENCES course(course_id))"+
             "ENGINE=innodb;");
@@ -180,7 +180,7 @@ public class Database{
             "creator_username VARCHAR(32),"+
             "course_id INT,"+
             "discount_amount INT,"+
-            "status INT,"+
+            "status VARCHAR(32),"+
             "PRIMARY KEY (admin_username, creator_username),"+
             "FOREIGN KEY (admin_username) REFERENCES siteadmin(username),"+
             "FOREIGN KEY (creator_username) REFERENCES coursecreator(username),"+
@@ -191,8 +191,9 @@ public class Database{
         stmt.executeUpdate("CREATE TABLE requestrefund ("+
             "username VARCHAR(32),"+
             "course_id INT,"+
+            "title VARCHAR(100),"+
             "reason VARCHAR(500),"+
-            "status INT,"+
+            "status VARCHAR(50),"+
             "PRIMARY KEY (username, course_id),"+
             "FOREIGN KEY (username) REFERENCES user(username),"+
             "FOREIGN KEY (course_id) REFERENCES course(course_id))"+
@@ -206,8 +207,8 @@ public class Database{
             "title VARCHAR(50),"+
             "reason VARCHAR(1000),"+
             "answer VARCHAR(1000),"+
-            "PRIMARY KEY (user_username, admin_username, course_id),"+
-            "FOREIGN KEY (user_username) REFERENCES user(username),"+
+            "PRIMARY KEY (user_username, course_id, title),"+
+            "FOREIGN KEY (user_username) REFERENCES account(username),"+
             "FOREIGN KEY (admin_username) REFERENCES siteadmin(username),"+
             "FOREIGN KEY (course_id) REFERENCES course(course_id))"+
             "ENGINE=innodb;");
@@ -283,7 +284,8 @@ public class Database{
         "(10001, 'Loops', 1, 'Introduction to Loops', '_uQrJ0TkZlc' ,1), "+
         "(10002, 'Variables', 2, 'Introduction to Variables', '_uQrJ0TkZlc' ,1), "+
         "(10003, 'Data Types', 3, 'Introduction to Data Types', '_uQrJ0TkZlc' ,1), "+
-        "(20001, 'Intro to PHP', 1, 'Introduction to PHP', 'C72WkcUZvco' ,2); ");
+        "(20002, 'Intro to JS', 1, 'Introduction to JS', 'C72WkcUZvco' ,2), " +
+        "(20001, 'Intro to PHP', 2, 'Introduction to PHP', 'C72WkcUZvco' ,2); ");
         System.out.println("lecture Table Populated.");
 
         stmt.executeUpdate("INSERT INTO rating VALUES" + 
@@ -293,12 +295,15 @@ public class Database{
 
         stmt.executeUpdate("INSERT INTO owns VALUES" + 
         "('malialtunsoy', 1), "+
+        "('malialtunsoy', 2), "+
         "('gokberkboz', 2);");
         System.out.println("owns Table Populated.");
 
         stmt.executeUpdate("INSERT INTO watched VALUES" + 
         "('malialtunsoy', 10001), "+
         "('malialtunsoy', 10002), "+
+        "('malialtunsoy', 10003), "+
+        "('malialtunsoy', 20001), "+
         "('gokberkboz', 20001);");
         System.out.println("watched Table Populated.");
 
@@ -319,8 +324,49 @@ public class Database{
 
         stmt.executeUpdate("INSERT INTO follows VALUES" + 
         "('gokberkboz', 'irmakceliker'), "+
+        "('malialtunsoy', 'gokberkboz'), "+
         "('malialtunsoy', 'irmakceliker');");
         System.out.println("follows Table Populated.");
+
+        stmt.executeUpdate("INSERT INTO question VALUES" + 
+        "(1, 'malialtunsoy', 'About loops?' ,'I cannot understand the second topic in the video. Can you explain again?', 'Hi, mali. The loops are very easy...', '12:15:32', '14:42:21'), "+
+        "(1, 'malialtunsoy', 'About booleans?' ,'I cannot understand the second topic in the video. Can you explain again?', NULL, '12:59:32', NULL), "+
+        "(1, 'gokberkboz', 'About variables?' ,'What do you mean by variables? Can you explain again?', 'Hi, GB. The variables are very easy...', '17:15:32', '21:42:21');");
+        System.out.println("question Table Populated.");
+
+        stmt.executeUpdate("INSERT INTO requestrefund VALUES" + 
+        "('malialtunsoy', 1, 'Not English', 'I cannot understand the Mandarin Chinese', 'ACTIVE'),"+
+        "('gokberkboz', 2, 'I dont like it', 'I want my money back.', 'ACTIVE');");
+        System.out.println("requestrefund Table Populated.");
+
+        stmt.executeUpdate("INSERT INTO discountoffer VALUES" + 
+        "('mali', 'gizemkaral', 1, 6 ,'ACTIVE'),"+
+        "('mali', 'daniel', 2, 9 ,'ACTIVE');");
+        System.out.println("discountoffer Table Populated.");
+
+        stmt.executeUpdate("INSERT INTO complaint VALUES" + 
+        "('daniel', NULL, 2, 'Payment Problem', 'I cannot withdraw money from the system.', NULL),"+
+        "('malialtunsoy', NULL, 1, 'Videos are Freezing', 'Videos are freezing while watching.', NULL);");
+        System.out.println("complaint Table Populated.");
+
+        stmt.executeUpdate("INSERT INTO posts VALUES" + 
+        "('irmakceliker', 'I learned Java today', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '21:30:21'),"+
+        "('gokberkboz', 'Im looking for a new python course.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit labore et dolore magna aliqua.', '12:15:54');");
+        System.out.println("posts Table Populated.");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         System.out.println("=====================================================ACCOUNT=====================================================");  
         System.out.printf("%12s |%12s |%12s \n", "username", "password", "email");

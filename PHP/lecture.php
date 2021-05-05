@@ -67,6 +67,7 @@ if(strtolower($ownsData['username']) == $username){
                 <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
                 <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
                 <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+                <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
                 <form id="searchbar">
                     <input id="searchbarInput" type="text" name="">
                     <button type="submit" name="Search">
@@ -80,7 +81,7 @@ if(strtolower($ownsData['username']) == $username){
     		<div class="lecturePageContainer">
     				<div class="lectureHeader">
     					<h1>' . $thisLectureData['lecture_name'] . '</h1>
-    					<button class="btn btn-sm btn-info">Go to Q&A Section
+    					<a href="QandA?courseID=' . $courseData['course_id'] . '"><button class="btn btn-info">Go to Q&A Page</button></a>
     					</button>
     				</div>
     				

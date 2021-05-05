@@ -13,7 +13,7 @@ if(!isset($_SESSION["LOGGEDIN"]) || $_SESSION["LOGGEDIN"] !== true){
 
 $username = $_SESSION['username'];
 
-$query = "	SELECT DISTINCT course_id, course_name,lecture_count, username, rating, video_url, wathcedLectures
+$query = "	SELECT course_id, course_name,lecture_count, username, rating, video_url, wathcedLectures
 FROM course NATURAL JOIN (SELECT course_id, AVG(rate) AS rating FROM rating GROUP BY course_id) AS sub1
 NATURAL JOIN (SELECT course_id, video_url FROM lecture WHERE lecture_index = 1) AS sub2
 NATURAL JOIN (SELECT course_id, COUNT(*) AS lecture_count FROM lecture GROUP BY
@@ -43,6 +43,7 @@ $response = $database->query($query) or die('Error in query: ' . $database->erro
 	        <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
 	        <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
 	        <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+            <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
 	        <form id="searchbar">
 	        	<input id="searchbarInput" type="text" name="">
 	        	<button type="submit" name="Search">
@@ -79,7 +80,7 @@ $response = $database->query($query) or die('Error in query: ' . $database->erro
                             }
                              $htmlContainer .= '<p></p>';
                              if($course['wathcedLectures'] == $course['lecture_count']){
-                                $htmlContainer .= '<button class="btn btn-danger">Get Certificate</button>';
+                                $htmlContainer .= '<a href="certificate?courseID=' . $course['course_id'] . '"><button class="btn btn-danger">Get Certificate</button></a>';
                              }
                              else{
                                 $htmlContainer .= ' <button class="btn btn-danger" disabled>Get Certificate</button>';

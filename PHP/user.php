@@ -55,6 +55,7 @@ if($userType == 'User'){ //user
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
             <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
             <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+            <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
             <form id="searchbar">
                 <input id="searchbarInput" type="text" name="">
                 <button type="submit" name="Search">
@@ -236,6 +237,7 @@ elseif($userType == 'Instructor' && $username == $pathUsername){ //instructor fr
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
             <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
             <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+            <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
             <form id="searchbar">
                 <input id="searchbarInput" type="text" name="">
                 <button type="submit" name="Search">
@@ -275,10 +277,10 @@ elseif($userType == 'Instructor' && $username == $pathUsername){ //instructor fr
                 </div>
                 <div class="coursesContainer">
                     <div class="lectureHeader">
-                        <h1>'. $pathUsername . '\'s Courses</h1> 
-                        <button id="openModalBox" class="btn btn-warning addNewQuestion">Add New Course</button>
-                    </div>
-                    ';
+                        <h1>'. $pathUsername . '\'s Courses</h1>
+                        <div><button id="openModalBox" class="btn btn-warning addNewQuestion">Add New Course</button>
+                        <a href="discountOffer"><button class="btn btn-danger">Discount Offers</button></a></div>
+                    </div>';
 
                 $query = "	SELECT DISTINCT course_id, course_fee, course_name,lecture_count, username, rating, video_url
                 FROM course NATURAL JOIN (SELECT course_id, AVG(rate) AS rating FROM rating GROUP BY course_id) AS sub1
@@ -371,6 +373,7 @@ elseif($userType == 'Instructor'){ //instructor from user
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
             <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
             <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+            <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
             <form id="searchbar">
                 <input id="searchbarInput" type="text" name="">
                 <button type="submit" name="Search">
@@ -458,6 +461,7 @@ else{ //admin
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
             <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
             <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+            <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
             <form id="searchbar">
                 <input id="searchbarInput" type="text" name="">
                 <button type="submit" name="Search">

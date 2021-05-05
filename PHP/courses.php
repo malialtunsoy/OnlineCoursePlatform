@@ -41,6 +41,7 @@ $response = $database->query($query) or die('Error in query: ' . $database->erro
 	        <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
 	        <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
 	        <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+            <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
 	        <form id="searchbar">
 	        	<input id="searchbarInput" type="text" name="">
 	        	<button type="submit" name="Search">

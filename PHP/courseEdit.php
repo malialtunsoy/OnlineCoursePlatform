@@ -54,6 +54,7 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
             </form>
             <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . '</a>
             <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
+            <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
         </div>
         <div class="container">
             <div class="courseEditPageContainer">
