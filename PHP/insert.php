@@ -177,7 +177,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       else{
         $addQuery = "UPDATE discountoffer SET discount_amount = $discount WHERE admin_username = '$username' AND creator_username = '$creator_username'";
         $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
-      }     
+      }   
     }
     //ANNOUNCEMENT
     if($_POST['method'] == "announcement" ){
@@ -285,11 +285,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $addQuery = "UPDATE lecture SET lecture_name = '$lecture_name', lecture_description = '$lecture_desc', video_url = '$video_url' WHERE lecture_id = $lectureID";
         $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
       }
+    }
 
+    //TICKET RESPONSE
+
+    //DISCOUNT RESPONSE
+
+    //SIGNUP
+    if($_POST['method'] == "signup" ){
+
+      $userType = $_POST['userType'];
+      $username = $_POST['username'];
+      $email = $_POST['email'];
+      $password = $_POST['password'];
+
+      $addQuery = "INSERT INTO account VALUES ('$username','$password','$email')";
+      $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+
+      if($userType == "USER"){//user
+        $addQuery = "INSERT INTO user VALUES ('$username',1000)";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      }
+      else{//creator
+        $addQuery = "INSERT INTO coursecreator VALUES ('$username',0)";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      }
 
       
-
     }
+      
+         
+  
 
 }
 

@@ -255,6 +255,7 @@ public class Database{
         "('malialtunsoy', 'password', 'mali@mail.com'), " +
         "('daniel', 'password', 'daniel@mail.com'), " +
         "('mali', 'password', 'maliadmin@mail.com'), " +
+        "('kutay', 'password', 'kutay@mail.com'), " +
         "('gizemkaral', 'password', 'gizem@mail.com'), " +
         "('gokberkboz', 'password', 'gokberk@mail.com'), " +
         "('irmakceliker', 'password', 'irmak@mail.com'); ");
@@ -262,6 +263,7 @@ public class Database{
 
         stmt.executeUpdate("INSERT INTO user VALUES" + 
         "('malialtunsoy', 1000), " +
+        "('kutay', 1000), " +
         "('gokberkboz', 1000), " +
         "('irmakceliker', 1000); ");
         System.out.println("user Table Populated.");   
@@ -360,11 +362,6 @@ public class Database{
         "('irmakceliker', 'I learned Java today', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '21:30:21'),"+
         "('gokberkboz', 'Im looking for a new python course.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit labore et dolore magna aliqua.', '12:15:54');");
         System.out.println("posts Table Populated.");
-
-
-
-
-
 
 
 
