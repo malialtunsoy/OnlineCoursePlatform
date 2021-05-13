@@ -39,6 +39,11 @@ if($course['wathcedLectures'] == $course['lecture_count'] && $course['lecture_co
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
             <script defer src="all.js"></script>
             <script defer src="stars.js"></script>
+            <script defer src="certificateShare.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
         <body>
         <div class="topnav">
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -55,7 +60,7 @@ if($course['wathcedLectures'] == $course['lecture_count'] && $course['lecture_co
             <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
         </div>
             <div class="container">
-                <h1>Your certificate for <a href="course?courseID=' . $course['course_id'] . '">' . $course['course_name'] . '</a></h1>
+                <h1>Your certificate for <a id="coursename" href="course?courseID=' . $course['course_id'] . '">' . $course['course_name'] . '</a></h1>
                 <img id="certificateImg" src="certificate.jpg">
                 <div style="display: flex; justify-content: space-between;">
                     <div><h2>Rate Course:</h2>
@@ -70,7 +75,7 @@ if($course['wathcedLectures'] == $course['lecture_count'] && $course['lecture_co
                     </div>
                 <div>
                     <p></p>
-                <button class="btn btn-primary">Share</button></div>
+                <button id="certificateShare" class="btn btn-primary">Share</button></div>
                 </div>
                 
                 

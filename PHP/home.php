@@ -23,6 +23,11 @@ $htmlContainer = '<!DOCTYPE html>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<script defer src="all.js"></script>
         <script defer src="script.js"></script>
+		<script defer src="share.js"></script>
+		<script
+		src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous"></script>
 	<body>
 	<div class="topnav">
 	<p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -85,17 +90,17 @@ $htmlContainer = '<!DOCTYPE html>
                 <div id="close">
                     <i class="fas fa-times-circle fa-2x"></i>
                 </div>
-                <h1>Ask a Question</h1>
+                <h1>Post Something</h1>
                 <form>
                     <div class="form-row">
                         <label>Title</label>
-                    <input placeholder="Title">
+                    <input id="title" placeholder="Title">
                     </div>
                     <div class="form-row">
-                        <label>Question</label>
+                        <label>Post</label>
                         <textarea id="questionInput"></textarea>
                     </div>
-                    <button class="btn btn-warning" id="modalreg">Ask</button>
+                    <button class="btn btn-warning" id="modalreg">Post</button>
                 </form>
             </div>
         </div>  

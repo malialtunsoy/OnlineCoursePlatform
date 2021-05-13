@@ -39,12 +39,23 @@ body::-webkit-scrollbar {
     
 }
 
-#mycourses, #profile{
+#mycourses, #profile, #balance{
     float: right;
 }
 
+#balance{
+	color: rgba(255,255,255,0.9);
+}
+
+#balance:hover{
+    color: rgba(255,255,255,0.9);
+    padding: 14px 16px;
+    text-decoration: none;
+	background-color: orange;
+}
+
 #searchbar{
-	width: 55%;
+	width: 45%;
 	display: inline-block;
 	flex-flow: row;
 	margin: 0;
@@ -86,6 +97,8 @@ body::-webkit-scrollbar {
     background-color: orange;
     padding: 0;
     margin: 0;
+	z-index: 10;
+	max-height: 55px;
 }
 
 .topnav a {
@@ -128,7 +141,7 @@ body::-webkit-scrollbar {
 }
 
 .card{
-	height: 370px;
+	height: 400px;
 	margin-top: 10%;
 	margin-bottom: auto;
 	width: 440px;
@@ -887,3 +900,4 @@ margin-left: 4px;
 	background: none;
 	outline:none;
 }
+

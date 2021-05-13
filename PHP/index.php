@@ -53,12 +53,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	<body>
 		<div class="topnav">
 	        <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
-	        <form id="searchbar">
-	        	<input id="searchbarInput" type="text" name="">
-	        	<button type="submit" name="Search">
-	        		<i class="fas fa-search"></i>
-	        	</button>
-	        </form>
 	        <a id="profile" href="signup"><i class="fas fa-user"></i>Sign Up</a>
 	        <a id="mycourses" style="display: none" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
     	</div>

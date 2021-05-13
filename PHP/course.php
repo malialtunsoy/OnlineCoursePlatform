@@ -23,12 +23,15 @@ $ownsData = $owns->fetch_assoc();
 
 $userType;
 
-$query = "	SELECT username
+$query = "	SELECT username, balance
             FROM user
             WHERE LOWER(username) = '$username'";
     
 $user = $database->query($query) or die('Error in the query: ' . $database->error);
-$user = $user->fetch_assoc()['username'];
+$user = $user->fetch_assoc();
+
+$balance = $user['balance'];
+$user = $user['username'];
 
 $query = "	SELECT username
             FROM coursecreator
@@ -74,6 +77,11 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
                 <script defer src="all.js"></script>
+                <script defer src="buyCourse.js"></script>
+                <script
+                src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                crossorigin="anonymous"></script>
             <body>
                 <div class="topnav">
                     <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -86,7 +94,8 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
-                    <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . '</a>
+                    <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . ' </a>
+                    <a id="balance" disabled>Balance: $' . $balance . '</a>
                     <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
                 </div>
                 <div class="container">
@@ -109,8 +118,8 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                                     $htmlContainer .= '<span class="fa fa-star"></span>';
                                 }
                             }
-                            $htmlContainer .= '<h4 id="price">$25,99</h4>
-                            <button class="btn btn-success">Buy</button>
+                            $htmlContainer .= '<h4 id="price">$' . $courseData['course_fee'] . '</h4>
+                            <button id="buyButton" class="btn btn-success">Buy</button>
                             <button class="btn btn-warning">Add to Wishlist</button>
                         </div>
                         
@@ -144,6 +153,11 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                 <script defer src="all.js"></script>
         
                 <script defer src="script.js"></script>
+                <script defer src="refundRequest.js"></script>
+                <script
+                src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                crossorigin="anonymous"></script>
             <body>
                 <div class="topnav">
                     <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -247,13 +261,17 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                         </div>
                         <h1>Refund Request</h1>
                         <form>
-                                               
+                            <div class="form-row">
+                                <label>Title</label>
+                            <input id="title" placeholder="Title">
+                            </div>                      
                             <div class="form-row">
                                 <label>Refund Reason</label>
                                 <textarea id="refundReason"></textarea>
                             </div>
-                            <button class="btn btn-warning" id="modalreg">Request</button>
+                            
                         </form>
+                        <button class="btn btn-warning" id="modalreg">Request</button>
                     </div>
                 </div>  
                 

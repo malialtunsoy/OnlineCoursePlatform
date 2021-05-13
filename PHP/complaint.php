@@ -156,6 +156,11 @@ else{
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
             <script defer src="all.js"></script>
             <script defer src="script.js"></script>
+            <script defer src="sendticket.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
         <body>
         <div class="topnav">
                 <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -177,11 +182,11 @@ else{
                     <form>
                       <div class="form-group">
                         <label for="exampleFormControlInput1">Title</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+                        <input id="title" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Title">
                       </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Select Course</label>
-                        <select class="form-control" id="exampleFormControlSelect1">';
+                        <select id="selectedCourse" class="form-control" id="exampleFormControlSelect1">';
 
                         if($userType == 'User'){
                             $query = "	SELECT DISTINCT course_id, course_fee, course_name,lecture_count, username, rating, video_url
@@ -213,9 +218,9 @@ else{
                       </div>
                       <div class="form-group">
                         <label for="exampleFormControlTextarea1">Complaint Reason</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea id="complaintReason" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                       </div>
-                      <button class="btn btn-warning">Send</button>
+                      <button id="sendTicket" class="btn btn-warning">Send</button>
                     </form>
                         
                         

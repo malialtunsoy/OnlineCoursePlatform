@@ -26,12 +26,6 @@ if(isset($_SESSION["LOGGEDIN"]) || $_SESSION["LOGGEDIN"] == true){
 	<body>
 		<div class="topnav">
 	        <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
-	        <form id="searchbar">
-	        	<input id="searchbarInput" type="text" name="">
-	        	<button type="submit" name="Search">
-	        		<i class="fas fa-search"></i>
-	        	</button>
-	        </form>
 	        <a id="profile" href="index"><i class="fas fa-user"></i>Login</a>
 	        <a id="mycourses" style="display: none"href=""><i class="fas fa-project-diagram" ></i>My Courses</a>
     	</div>

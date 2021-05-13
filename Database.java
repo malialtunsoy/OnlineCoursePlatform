@@ -276,8 +276,8 @@ public class Database{
         System.out.println("coursecreator Table Populated.");
 
         stmt.executeUpdate("INSERT INTO course VALUES" + 
-        "(1, 'Python Tutorial', 'This is a Python Course', 25.99, 'gizemkaral', 0), "+
-        "(2, 'Web Design', 'This is a Web Design Course', 19.99, 'daniel', 1); ");
+        "(1, 'Python Tutorial', 'This is a Python Course', 25, 'gizemkaral', 0), "+
+        "(2, 'Web Design', 'This is a Web Design Course', 19, 'daniel', 1); ");
         System.out.println("course Table Populated.");
 
         stmt.executeUpdate("INSERT INTO lecture VALUES" + 
@@ -325,6 +325,7 @@ public class Database{
         stmt.executeUpdate("INSERT INTO follows VALUES" + 
         "('gokberkboz', 'irmakceliker'), "+
         "('malialtunsoy', 'gokberkboz'), "+
+        "('gokberkboz', 'malialtunsoy'), "+
         "('malialtunsoy', 'irmakceliker');");
         System.out.println("follows Table Populated.");
 
