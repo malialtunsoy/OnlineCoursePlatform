@@ -23,4 +23,20 @@ button.addEventListener("click", function(){
     }
     
     location.reload();
-})
+});
+
+var wishButton = document.getElementById("wishButton");
+wishButton.addEventListener("click", function(){
+    var courseID = window.location.href;
+    courseID = courseID[courseID.length-1];
+    $.ajax({
+        type : "POST",  //type of method
+        url  : "insert.php",  //your page
+        data : { method: "wish", course: courseID},// passing the values
+        success: function(res){  
+                                //do what you want here...
+                }
+    });
+        
+    location.reload();
+});

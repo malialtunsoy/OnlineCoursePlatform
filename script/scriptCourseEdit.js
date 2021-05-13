@@ -1,13 +1,13 @@
 var modal = document.querySelectorAll(".modalbox");
 
 // Get the button that opens the modal
-var btn = document.querySelectorAll("#openModalBox");
+var btn = document.querySelectorAll(".openModalBox");
 
 // Get the <span> element that closes the modal
 var span = document.querySelectorAll("#close");
 
 var regModal = document.querySelectorAll("#modalreg");
-
+console.log("asa");
 // When the user clicks the button, open the modal
 
 for(var i = 0; i < btn.length; i++){

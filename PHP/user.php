@@ -49,7 +49,12 @@ if($userType == 'User'){ //user
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <script defer src="all.js"></script>
-        <script defer src="script.js"></script>
+        <script defer src="follow.js"></script>
+        <script defer src="certificateShare.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
     <body>
         <div class="topnav">
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -89,10 +94,10 @@ if($userType == 'User'){ //user
                         $follow = $database->query($query) or die('Error in the query: ' . $database->error);
                         $follow = $follow->fetch_assoc()['username_1'];
                         if($follow == $username){
-                            $htmlContainer .= '<button class="btn btn-sm btn-danger">-Unfollow</button>';
+                            $htmlContainer .= '<button id="followButton" class="btn btn-sm btn-danger">-Unfollow</button>';
                         }
                         else{
-                            $htmlContainer .= '<button class="btn btn-sm btn-primary">+Follow</button>';
+                            $htmlContainer .= '<button id="followButton" class="btn btn-sm btn-primary">+Follow</button>';
                         }
                         
                     }
@@ -137,9 +142,6 @@ if($userType == 'User'){ //user
                             $htmlContainer .= '
                         </div>
                     </div>';
-
-
-
                 } 
                 $htmlContainer .= '
             
@@ -231,7 +233,12 @@ elseif($userType == 'Instructor' && $username == $pathUsername){ //instructor fr
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <script defer src="all.js"></script>
-        <script defer src="script.js"></script>
+        <script defer src="follow.js"></script>
+        <script defer src="addCourse.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
     <body>
         <div class="topnav">
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -265,10 +272,10 @@ elseif($userType == 'Instructor' && $username == $pathUsername){ //instructor fr
                         $follow = $database->query($query) or die('Error in the query: ' . $database->error);
                         $follow = $follow->fetch_assoc()['username_1'];
                         if($follow == $username){
-                            $htmlContainer .= '<button class="btn btn-sm btn-danger">-Unfollow</button>';
+                            $htmlContainer .= '<button id="followButton" class="btn btn-sm btn-danger">-Unfollow</button>';
                         }
                         else{
-                            $htmlContainer .= '<button class="btn btn-sm btn-primary">+Follow</button>';
+                            $htmlContainer .= '<button id="followButton" class="btn btn-sm btn-primary">+Follow</button>';
                         }
                         
                     }
@@ -327,25 +334,26 @@ elseif($userType == 'Instructor' && $username == $pathUsername){ //instructor fr
                             <form>
                                 <div class="form-row">
                                     <label>Course Name</label>
-                                    <input placeholder="CourseName">
+                                    <input class="courseNameEdit" placeholder="CourseName">
                                 </div>
                                 <div class="form-row">
                                     <label>Course Price</label>
-                                    <input value="$">
+                                    <input class="coursePriceEdit" value="$">
                                 </div>
                                 <div class="form-row">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                        <input type="checkbox" class="custom-control-input courseDiscountEdit" id="customSwitch1">
                                         <label class="custom-control-label" for="customSwitch1">Allow Discounts</label>
                                     </div>
                                 </div>
                                 
                                 <div class="form-row">
                                     <label>Course Description</label>
-                                    <textarea id="questionInput"></textarea>
+                                    <textarea class="courseDescEdit" id="questionInput"></textarea>
                                 </div>
-                                <button class="btn btn-warning" id="modalreg">Add Course</button>
+                                
                             </form>
+                            <button class="btn btn-warning addCourse" id="modalreg">Add Course</button>
                         </div>
                     </div>  
                     
@@ -368,6 +376,11 @@ elseif($userType == 'Instructor'){ //instructor from user
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <script defer src="all.js"></script>
         <script defer src="script.js"></script>
+        <script defer src="follow.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
     <body>
         <div class="topnav">
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -392,7 +405,23 @@ elseif($userType == 'Instructor'){ //instructor from user
                 <div class="profileDetail">
                     <h1>'. $_GET["id"] . '</h1>
                     <h3>'. $userType . '</h3>
-                    <button class="btn btn-sm btn-primary">+Follow</button>
+                    ';
+                    if($username != $pathUsername){
+                        $query = "	SELECT username_1
+                                    FROM follows
+                                    WHERE LOWER(username_1) = '$username' AND LOWER(username_2) = '$pathUsername'";
+                            
+                        $follow = $database->query($query) or die('Error in the query: ' . $database->error);
+                        $follow = $follow->fetch_assoc()['username_1'];
+                        if($follow == $username){
+                            $htmlContainer .= '<button id="followButton" class="btn btn-sm btn-danger">-Unfollow</button>';
+                        }
+                        else{
+                            $htmlContainer .= '<button id="followButton" class="btn btn-sm btn-primary">+Follow</button>';
+                        }
+                        
+                    }
+                    $htmlContainer .= '
                 </div>
             </div> 
             <div></div>

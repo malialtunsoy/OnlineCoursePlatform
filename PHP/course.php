@@ -23,14 +23,12 @@ $ownsData = $owns->fetch_assoc();
 
 $userType;
 
-$query = "	SELECT username, balance
+$query = "	SELECT username
             FROM user
             WHERE LOWER(username) = '$username'";
     
 $user = $database->query($query) or die('Error in the query: ' . $database->error);
 $user = $user->fetch_assoc();
-
-$balance = $user['balance'];
 $user = $user['username'];
 
 $query = "	SELECT username
@@ -60,6 +58,8 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
     
         $course = $database->query($query) or die('Error in query: ' . $database->error);
         $courseData = $course->fetch_assoc();
+
+        
 
 if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
 
@@ -94,8 +94,19 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
-                    <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . ' </a>
-                    <a id="balance" disabled>Balance: $' . $balance . '</a>
+                    <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . ' </a>';
+                    if($userType == "User"){
+                        $query = "	SELECT balance
+                        FROM user
+                        WHERE LOWER(username) = '$username'";
+                            
+                        $balance = $database->query($query) or die('Error in the query: ' . $database->error);
+                        $balance = $balance->fetch_assoc();
+                        $balance = $balance['balance'];
+
+                        $htmlContainer .='<a id="balance" disabled>Balance: $' . $balance . '</a>';
+                    }
+                    $htmlContainer .='
                     <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
                 </div>
                 <div class="container">
@@ -120,7 +131,22 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                             }
                             $htmlContainer .= '<h4 id="price">$' . $courseData['course_fee'] . '</h4>
                             <button id="buyButton" class="btn btn-success">Buy</button>
-                            <button class="btn btn-warning">Add to Wishlist</button>
+                            ';
+                        $query = "	SELECT username
+                                    FROM wishes
+                                    WHERE LOWER(username) = '$username' AND course_id = '$courseID'";
+                            
+                        $wish = $database->query($query) or die('Error in the query: ' . $database->error);
+                        $wish = $wish->fetch_assoc()['username'];
+                        if($wish == $username){
+                            $htmlContainer .= '<button id="wishButton" class="btn btn-danger">Remove from Wishlist</button>';
+                        }
+                        else{
+                            $htmlContainer .= '<button id="wishButton" class="btn btn-warning">Add to Wishlist</button>';
+                        }
+                        
+                    $htmlContainer .= '
+                            
                         </div>
                         
                     </div>
@@ -159,7 +185,7 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
                 crossorigin="anonymous"></script>
             <body>
-                <div class="topnav">
+            <div class="topnav">
                     <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
                     <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
                     <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
@@ -170,7 +196,19 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
-                    <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . '</a>
+                    <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . ' </a>';
+                    if($userType == "User"){
+                        $query = "	SELECT balance
+                        FROM user
+                        WHERE LOWER(username) = '$username'";
+                            
+                        $balance = $database->query($query) or die('Error in the query: ' . $database->error);
+                        $balance = $balance->fetch_assoc();
+                        $balance = $balance['balance'];
+
+                        $htmlContainer .='<a id="balance" disabled>Balance: $' . $balance . '</a>';
+                    }
+                    $htmlContainer .='
                     <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
                 </div>
                 <div class="container">
@@ -289,21 +327,26 @@ elseif($userType == 'Admin'){ //admin
                 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
                 <script defer src="all.js"></script>
+                <script defer src="discount.js"></script>
+                <script
+                src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                crossorigin="anonymous"></script>
             <body>
-                <div class="topnav">
-                    <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
-                    <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
-                    <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
-                    <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
-                    <form id="searchbar">
-                        <input id="searchbarInput" type="text" name="">
-                        <button type="submit" name="Search">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </form>
-                    <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . '</a>
-                    <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
-                </div>
+            <div class="topnav">
+            <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
+            <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
+            <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
+            <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
+            <form id="searchbar">
+                <input id="searchbarInput" type="text" name="">
+                <button type="submit" name="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . ' </a>
+            <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
+        </div>
                 <div class="container">
                     <div class="courseContainer">
                         <div class="leftCourseContainer">
@@ -314,7 +357,7 @@ elseif($userType == 'Admin'){ //admin
                         </div>
                         <div class="rightCourseContainer">
                             <h1>' . $courseData['course_name'] . '</h1>
-                            <h4><a href="user?id=' . $courseData['username'] . '">' . $courseData['username'] . '</a></h4>
+                            <h4><a id="creatorUsername" href="user?id=' . $courseData['username'] . '">' . $courseData['username'] . '</a></h4>
                             <p>' . $courseData['lecture_count'] . ' Lectures</p>';
                             for($i = 0; $i < 4; $i++){
                                 if($i < $courseData['rating']){
@@ -324,18 +367,31 @@ elseif($userType == 'Admin'){ //admin
                                     $htmlContainer .= '<span class="fa fa-star"></span>';
                                 }
                             }
-                            $htmlContainer .= '<h4 id="price">$25,99</h4>
-                            <form class="form-inline">
-					  <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-					  <div class="input-group mb-2 mr-sm-2">
-					    <div class="input-group-prepend">
-					      <div class="input-group-text">$</div>
-					    </div>
-					    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Discount">
-					  </div>
+                            $htmlContainer .= '<h4 id="price">$25,99</h4>';
+                            
+                            $query = "	SELECT discount_allow
+                                        FROM course
+                                        WHERE course_id = '$courseID'";
+    
+                                $discount = $database->query($query) or die('Error in query: ' . $database->error);
+                                $discount = $discount->fetch_assoc();
+                                $discount = $discount['discount_allow'];
+                                if($discount){
+                                    $htmlContainer .='<div style="display: flex"><form class="form-inline">
+                                    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">$</div>
+                                      </div>
+                                      <input id="discountAmount" type="number" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Discount">
+                                    </div>                                   
+                                  </form>
+                                  <button id="discountButton" type="submit" class="btn btn-primary mb-2">Offer</button></div>';
+                                  
+                                }
 
-					  <button type="submit" class="btn btn-primary mb-2">Offer</button>
-					</form>
+                            $htmlContainer .='
+                            
                         </div>
                         
                     </div>

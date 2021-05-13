@@ -38,7 +38,6 @@ if($course['wathcedLectures'] == $course['lecture_count'] && $course['lecture_co
             <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
             <script defer src="all.js"></script>
-            <script defer src="stars.js"></script>
             <script defer src="certificateShare.js"></script>
             <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -69,7 +68,7 @@ if($course['wathcedLectures'] == $course['lecture_count'] && $course['lecture_co
                             <button class="star" id="star2button" ><span id="star2" class="fa fa-star"></span></button>
                             <button class="star" id="star3button" ><span id="star3" class="fa fa-star"></span></button>
                             <button class="star" id="star4button" ><span id="star4" class="fa fa-star"></span></button>
-                            <button class="btn btn-warning">Rate</button>
+                            <button id="rateButton" class="btn btn-warning">Rate</button>
                         </div>
                         
                     </div>

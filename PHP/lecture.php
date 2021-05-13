@@ -62,6 +62,11 @@ if(strtolower($ownsData['username']) == $username){
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<script defer src="all.js"></script>
+        <script defer src="lecture.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
 	<body>
     <div class="topnav">
                 <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -91,19 +96,24 @@ if(strtolower($ownsData['username']) == $username){
     						<h2>Lecture ' . $thisLectureData['lecture_index'] . ': ' . $thisLectureData['lecture_name'] . '</h2>
     						<p>' . $thisLectureData['lecture_description'] . '</p>
     						<h3>My Notes:</h3>
-    						<textarea class="lectureNotes">' . $note . '</textarea>
-    						<button class="btn btn-warning">Update</button>
+    						<textarea id="noteText" class="lectureNotes">' . $note . '</textarea>
+    						<button id="noteUpdate" class="btn btn-warning">Update</button>
     					</div>
     					<div class="rigthBottom">
                             <div class="arrows">
                                 ';
                                 if(((int)($thisLectureData['lecture_id'])-$one) > ((int)$courseID*$thousand)){
-                                    $htmlContainer .= '<p>Previous</p><a href="lecture?lectureID=' . ((int)($thisLectureData['lecture_id'])-$one) . '"><i class="fas fa-arrow-left"></i></a>';
+                                    $htmlContainer .= '<p>Previous</p><a id="prev" href="lecture?lectureID=' . ((int)($thisLectureData['lecture_id'])-$one) . '"><i class="fas fa-arrow-left"></i></a>';
+                                }
+                                else{
+                                    $htmlContainer .= '<p>Unwatch</p><a id="prev" href=""><i class="fas fa-times"></i></a>';
                                 }
                                 if(((int)($thisLectureData['lecture_id'])+$one) < (((int)$courseID)*$thousand)+$lectureCount+$one){
-                                    $htmlContainer .= '<a href="lecture?lectureID=' . ((int)($thisLectureData['lecture_id'])+$one) . '"><i class="fas fa-arrow-right"></i></a><p>Next</p>';
+                                    $htmlContainer .= '<a id="next" href="lecture?lectureID=' . ((int)($thisLectureData['lecture_id'])+$one) . '"><i class="fas fa-arrow-right"></i></a><p>Next</p>';
                                 }
-                                
+                                else{
+                                    $htmlContainer .= '<a id="next" href=""><i class="fas fa-check"></i></i></a><p>Finish</p>';
+                                }
                                 
                                 $htmlContainer .= '
                             </div>

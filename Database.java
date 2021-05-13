@@ -230,7 +230,7 @@ public class Database{
             "content VARCHAR(500),"+
             "timestamp TIME,"+
             "PRIMARY KEY (username, timestamp),"+
-            "FOREIGN KEY (username) REFERENCES user(username))"+
+            "FOREIGN KEY (username) REFERENCES account(username))"+
             "ENGINE=innodb;");
         System.out.println("posts table created.");
 
@@ -238,8 +238,8 @@ public class Database{
             "username_1 VARCHAR(32),"+
             "username_2 VARCHAR(32),"+
             "PRIMARY KEY (username_1, username_2),"+
-            "FOREIGN KEY (username_1) REFERENCES user(username),"+
-            "FOREIGN KEY (username_2) REFERENCES user(username))"+
+            "FOREIGN KEY (username_1) REFERENCES account(username),"+
+            "FOREIGN KEY (username_2) REFERENCES account(username))"+
             "ENGINE=innodb;");
         System.out.println("follows table created.");
 
@@ -284,12 +284,12 @@ public class Database{
         "(10001, 'Loops', 1, 'Introduction to Loops', '_uQrJ0TkZlc' ,1), "+
         "(10002, 'Variables', 2, 'Introduction to Variables', '_uQrJ0TkZlc' ,1), "+
         "(10003, 'Data Types', 3, 'Introduction to Data Types', '_uQrJ0TkZlc' ,1), "+
-        "(20002, 'Intro to JS', 1, 'Introduction to JS', 'C72WkcUZvco' ,2), " +
-        "(20001, 'Intro to PHP', 2, 'Introduction to PHP', 'C72WkcUZvco' ,2); ");
+        "(20001, 'Intro to PHP', 1, 'Introduction to PHP', 'C72WkcUZvco' ,2), " +
+        "(20002, 'Intro to JS', 2, 'Introduction to JS', 'C72WkcUZvco' ,2); ");
         System.out.println("lecture Table Populated.");
 
         stmt.executeUpdate("INSERT INTO rating VALUES" + 
-        "('malialtunsoy', 1, 3), "+
+        "('malialtunsoy', 1, 4), "+
         "('gokberkboz', 2, 1);");
         System.out.println("rating Table Populated.");
 
@@ -323,8 +323,14 @@ public class Database{
         System.out.println("wishes Table Populated.");
 
         stmt.executeUpdate("INSERT INTO follows VALUES" + 
+        "('malialtunsoy', 'malialtunsoy'), "+
+        "('gokberkboz', 'gokberkboz'), "+
+        "('irmakceliker', 'irmakceliker'), "+
+        "('gizemkaral', 'gizemkaral'), "+
+        "('daniel', 'daniel'), "+
         "('gokberkboz', 'irmakceliker'), "+
         "('malialtunsoy', 'gokberkboz'), "+
+        "('malialtunsoy', 'gizemkaral'), "+
         "('gokberkboz', 'malialtunsoy'), "+
         "('malialtunsoy', 'irmakceliker');");
         System.out.println("follows Table Populated.");
@@ -340,10 +346,10 @@ public class Database{
         "('gokberkboz', 2, 'I dont like it', 'I want my money back.', 'ACTIVE');");
         System.out.println("requestrefund Table Populated.");
 
-        stmt.executeUpdate("INSERT INTO discountoffer VALUES" + 
+        /*stmt.executeUpdate("INSERT INTO discountoffer VALUES" + 
         "('mali', 'gizemkaral', 1, 6 ,'ACTIVE'),"+
         "('mali', 'daniel', 2, 9 ,'ACTIVE');");
-        System.out.println("discountoffer Table Populated.");
+        System.out.println("discountoffer Table Populated.");*/
 
         stmt.executeUpdate("INSERT INTO complaint VALUES" + 
         "('daniel', NULL, 2, 'Payment Problem', 'I cannot withdraw money from the system.', NULL),"+
@@ -354,13 +360,6 @@ public class Database{
         "('irmakceliker', 'I learned Java today', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '21:30:21'),"+
         "('gokberkboz', 'Im looking for a new python course.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit labore et dolore magna aliqua.', '12:15:54');");
         System.out.println("posts Table Populated.");
-
-
-
-
-
-
-
 
 
 

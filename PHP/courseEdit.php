@@ -40,7 +40,11 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
             <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
             <script defer src="all.js"></script>
-            <script defer src="scriptCourseEdit.js"></script>
+            <script defer src="courseEdit.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
         <body>
         <div class="topnav">
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -69,7 +73,7 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                         <form>
                             <div class="form-group">
                             <label for="exampleFormControlInput1">Lecture Name</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1"> 
+                            <input  type="text" class="form-control" id="exampleFormControlInput1"> 
                             </div>
                             <div class="form-group">
                             <label for="exampleFormControlTextarea1">Lecture Description</label>
@@ -79,22 +83,24 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                             <label for="exampleFormControlInput1">Video Url</label>
                             <input type="text" class="form-control" id="exampleFormControlInput1"> 
                             </div>
-                            <button type="submit" class="btn btn-primary">Add Lecture</button>
+                            
                         </form>
+                        <button id="addLectureButton" type="submit" class="btn btn-primary">Add Lecture</button>
                     </div>
                     <div class="newAnn">
                         <h2>Make an Announcement</h2>
                         <form>
                             <div class="form-group">
                             <label for="exampleFormControlInput1">Title</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1"> 
+                            <input id="annTitle" type="text" class="form-control" id="exampleFormControlInput1"> 
                             </div>
                             <div class="form-group">
                             <label for="exampleFormControlTextarea1">Announcement</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea id="annContent" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Announce</button>
+                            
                         </form>
+                        <button id="announceButton" type="submit" class="btn btn-primary">Announce</button>
                     </div>
                 </div>
                 <div class="courseEditLectures">
@@ -119,8 +125,8 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                             <p>' . $lecture['lecture_description'] . '</p>
                         </div>
                         <div class="lectureEditButtons">
-                            <button id="openModalBox" class="btn-warning btn">Edit</button>
-                            <button class="btn-danger btn">Remove</button>
+                            <button id="' . $lecture['lecture_id'] . '" class="btn-warning btn openModalBox editButton">Edit</button>
+                            <button id="' . $lecture['lecture_id'] . '" class="btn-danger btn deleteButton">Remove</button>
                         </div>
                     </div>';
                     }
@@ -138,7 +144,6 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
 
                             $lectures = $database->query($query) or die('Error in query: ' . $database->error);
 
-                            while ($lecture = $lectures->fetch_assoc()){ 
                                 $htmlContainer .= '
                                 <div class="modalbox" id="questionModelBox">
                                     <div id="questionModelContent" class="modalcontent">
@@ -149,22 +154,21 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                                         <form>
                                             <div class="form-row">
                                                 <label>Lecture Name</label>
-                                                <input placeholder="' . $lecture['lecture_name'] . '">
+                                                <input class="lecNameEdit" placeholder="">
                                             </div>
                                             <div class="form-row">
                                                 <label>Lecture Video URL</label>
-                                                <input value="' . $lecture['video_url'] . '">
+                                                <input class="videoURLEdit" value="">
                                             </div>                                            
                                             <div class="form-row">
                                                 <label>Lecture Description</label>
-                                                <textarea id="questionInput">' . $lecture['lecture_description'] . '</textarea>
+                                                <textarea class="lecDescEdit"  id="questionInput"></textarea>
                                             </div>
                                             
                                         </form>
-                                        <button class="btn btn-warning" id="modalreg">Edit Lecture</button>
+                                        <button class="btn btn-warning editLecture" id="modalreg">Edit Lecture</button>
                                     </div>
                                 </div>';
-                            }
 
                             $htmlContainer .= '
                             <div class="editModalbox" id="questionModelBox">
@@ -176,19 +180,19 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                                     <form>
                                         <div class="form-row">
                                             <label>Course Name</label>
-                                            <input placeholder="' . $courseData['course_name'] . '">
+                                            <input class="courseNameEdit" placeholder="' . $courseData['course_name'] . '">
                                         </div>
                                         <div class="form-row">
                                             <label>Course Price</label>
-                                            <input value="$' . $courseData['course_fee'] . '">
+                                            <input class="coursePriceEdit"  value="$' . $courseData['course_fee'] . '">
                                         </div>
                                         <div class="form-row">
                                             <div class="custom-control custom-switch">';
                                                 if($courseData['discount_allow']){
-                                                    $htmlContainer .= '<input type="checkbox" class="custom-control-input" id="customSwitch1" checked>';
+                                                    $htmlContainer .= '<input type="checkbox" class="custom-control-input courseDiscountEdit" id="customSwitch1" checked>';
                                                 }
                                                 else{
-                                                    $htmlContainer .= '<input type="checkbox" class="custom-control-input" id="customSwitch1">';
+                                                    $htmlContainer .= '<input type="checkbox" class="custom-control-input courseDiscountEdit" id="customSwitch1">';
                                                 }
                                                 $htmlContainer .= '
                                                 
@@ -198,10 +202,10 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                                         
                                         <div class="form-row">
                                             <label>Course Description</label>
-                                            <textarea id="questionInput">' . $courseData['course_desc'] . '</textarea>
+                                            <textarea class="courseDescEdit" id="questionInput">' . $courseData['course_desc'] . '</textarea>
                                         </div>
                                     </form>
-                                    <button class="btn btn-warning" id="editModalreg">Edit Course</button>
+                                    <button class="btn btn-warning editCourse" id="editModalreg">Edit Course</button>
                                 </div>
                             </div>                      
             

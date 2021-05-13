@@ -13,19 +13,24 @@ if(!isset($_SESSION["LOGGEDIN"]) || $_SESSION["LOGGEDIN"] !== true){
 
 $username = $_SESSION['username'];
 
-$query = "	SELECT course_id, course_name,lecture_count, username, rating, video_url, wathcedLectures
+$query = "	SELECT course_id, course_name,lecture_count, username, rating, video_url
 FROM course NATURAL JOIN (SELECT course_id, AVG(rate) AS rating FROM rating GROUP BY course_id) AS sub1
 NATURAL JOIN (SELECT course_id, video_url FROM lecture WHERE lecture_index = 1) AS sub2
 NATURAL JOIN (SELECT course_id, COUNT(*) AS lecture_count FROM lecture GROUP BY
 course_id) AS sub3
-NATURAL JOIN (SELECT course_id, COUNT(lecture_id) AS wathcedLectures 
-              FROM (SELECT course_id, lecture_id 
-                    FROM course NATURAL JOIN lecture 
-                    WHERE lecture_id IN (SELECT lecture_id FROM watched WHERE username = '$username')) AS sub41 
-              GROUP BY course_id) AS sub4
 WHERE course_id IN (SELECT course_id FROM owns WHERE username = '$username')";
 
 $response = $database->query($query) or die('Error in query: ' . $database->error);
+
+$query = "SELECT course_id, COUNT(lecture_id) AS wathcedLectures 
+              FROM (SELECT course_id, lecture_id 
+                    FROM course NATURAL JOIN lecture 
+                    WHERE lecture_id IN (SELECT lecture_id FROM watched WHERE username = '$username')) AS sub1
+              GROUP BY course_id;";
+
+$wathcedLectures = $database->query($query) or die('Error in query: ' . $database->error);
+$wathcedLectures = $wathcedLectures->fetch_assoc()['wathcedLectures'];
+
 
 
 ?>
@@ -79,7 +84,7 @@ $response = $database->query($query) or die('Error in query: ' . $database->erro
                                 }
                             }
                              $htmlContainer .= '<p></p>';
-                             if($course['wathcedLectures'] == $course['lecture_count']){
+                             if($wathcedLectures == $course['lecture_count']){
                                 $htmlContainer .= '<a href="certificate?courseID=' . $course['course_id'] . '"><button class="btn btn-danger">Get Certificate</button></a>';
                              }
                              else{
