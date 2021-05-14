@@ -73,8 +73,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $addQuery = "UPDATE user SET balance = balance + $courseFee WHERE username = '$user_username'";
         $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
 
+        //get course creator
+        $addQuery = "SELECT username FROM course WHERE course_id = $courseID";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+        $creator_username = $addResponse->fetch_assoc()['username'];
+
         //change craeator income
-        $addQuery = "UPDATE coursecreator SET income = income - $courseFee WHERE username = '$user_username'";
+        $addQuery = "UPDATE coursecreator SET income = income - $courseFee WHERE username = '$creator_username'";
         $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
 
         //change owns
@@ -112,6 +117,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       $addQuery = "INSERT INTO owns VALUES ('$username', $courseID);";
       $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
 
+      //get course creator
+      $addQuery = "SELECT username FROM course WHERE course_id = $courseID";
+      $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      $creator_username = $addResponse->fetch_assoc()['username'];
+
+      //change craeator income
+      $addQuery = "UPDATE coursecreator SET income = income + '$fee' WHERE username = '$creator_username'";
+      $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
       
       //UPDATE BALANCE
       $addQuery = "UPDATE user SET balance = balance - '$fee' WHERE username = '$username';";

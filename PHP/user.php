@@ -237,7 +237,14 @@ elseif($userType == 'Instructor' && $username == $pathUsername){ //instructor fr
                     </div>
                     <div class="profileDetail">
                         <h1>'. $_GET["id"] . '</h1>
-                        <h3>'. $userType . '</h3>
+                        <h3>'. $userType . '</h3>';
+
+                        $addQuery = "SELECT income FROM coursecreator WHERE username = '$username'";
+                        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+                        $income = $addResponse->fetch_assoc()['income'];
+
+                        $htmlContainer .='
+                        <h5>Income: $'. $income . '</h5>
                         ';
                     if($username != $pathUsername){
                         $query = "	SELECT username_1
