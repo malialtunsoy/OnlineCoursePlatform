@@ -31,13 +31,45 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['password'] = $password;
             $_SESSION['username'] = $username;
             $_SESSION['LOGGEDIN'] = true;
+
+			//SET USER TYPE
+		$userType;
+
+		$query = "	SELECT username
+					FROM user
+					WHERE LOWER(username) = '$username'";
+			
+		$user = $database->query($query) or die('Error in the query: ' . $database->error);
+		$user = $user->fetch_assoc()['username'];
+
+		$query = "	SELECT username
+            FROM coursecreator
+            WHERE LOWER(username) = '$username'";
+    
+		$creator = $database->query($query) or die('Error in the query: ' . $database->error);
+		$creator = $creator->fetch_assoc()['username'];
+
+		$query = "	SELECT username
+					FROM siteadmin
+					WHERE LOWER(username) = '$username'";
+			
+		$admin = $database->query($query) or die('Error in the query: ' . $database->error);
+		$admin = $admin->fetch_assoc()['username'];
+
+		if($user == $username){$userType = 'User';}
+		if($creator == $username){$userType = 'Instructor';}
+		if($admin == $username){$userType = 'Admin';}
+        $_SESSION['userType'] = $userType;
+
+		
             header('Location: home.php');
         } else {
            $errors = "Invalid username or password";
         }
     
         $database->close(); 
-          
+
+		
       }	
 }
 ?>

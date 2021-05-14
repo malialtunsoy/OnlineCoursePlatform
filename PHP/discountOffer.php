@@ -12,32 +12,7 @@ if(!isset($_SESSION["LOGGEDIN"]) || $_SESSION["LOGGEDIN"] !== true){
 }
 
 $username = $_SESSION['username'];
-$userType;
-
-$query = "	SELECT username
-            FROM user
-            WHERE LOWER(username) = '$username'";
-    
-$user = $database->query($query) or die('Error in the query: ' . $database->error);
-$user = $user->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM coursecreator
-            WHERE LOWER(username) = '$username'";
-    
-$creator = $database->query($query) or die('Error in the query: ' . $database->error);
-$creator = $creator->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM siteadmin
-            WHERE LOWER(username) = '$username'";
-    
-$admin = $database->query($query) or die('Error in the query: ' . $database->error);
-$admin = $admin->fetch_assoc()['username'];
-
-if($user == $username){$userType = 'User';}
-if($creator == $username){$userType = 'Instructor';}
-if($admin == $username){$userType = 'Admin';}
+$userType = $_SESSION['userType'];
 
 
 if($userType == 'Instructor'){ //instructor owns
@@ -50,6 +25,11 @@ if($userType == 'Instructor'){ //instructor owns
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
             <script defer src="all.js"></script>
             <script defer src="script.js"></script>
+            <script defer src="discountOffers.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
         <body>
         <div class="topnav">
             <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -93,8 +73,8 @@ if($userType == 'Instructor'){ //instructor owns
                                     <h5>Course Price: $' . $course['course_fee'] . '</h5>
                                     <h5>Discount Offer: $' . $offer['discount_amount'] . '</h5>
                                     <h5>New Price: $' . $newFee . '</h5>
-                                    <button class="btn btn-success">Approve</button>
-                                    <button class="btn btn-danger">Decline</button>
+                                    <button id="' . $offer['admin_username'] . '-' . $offer['course_id'] . '-' . ($course['course_fee'] - $offer['discount_amount']) . '" class="btn btn-success approveButton">Approve</button>
+                                    <button id="' . $offer['admin_username'] . '-' . $offer['course_id'] . '-' . ($course['course_fee'] - $offer['discount_amount']) . '" class="btn btn-danger declineButton">Decline</button>
                                 </div>	';
                                 }
                                 

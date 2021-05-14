@@ -20,32 +20,7 @@ WHERE username = '$username' and course_id = '$courseID' ";
 $owns = $database->query($query) or die('Error in query: ' . $database->error);
 $ownsData = $owns->fetch_assoc();
 
-$userType;
-
-$query = "	SELECT username
-            FROM user
-            WHERE LOWER(username) = '$username'";
-    
-$user = $database->query($query) or die('Error in the query: ' . $database->error);
-$user = $user->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM coursecreator
-            WHERE LOWER(username) = '$username'";
-    
-$creator = $database->query($query) or die('Error in the query: ' . $database->error);
-$creator = $creator->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM siteadmin
-            WHERE LOWER(username) = '$username'";
-    
-$admin = $database->query($query) or die('Error in the query: ' . $database->error);
-$admin = $admin->fetch_assoc()['username'];
-
-if($user == $username){$userType = 'User';}
-if($creator == $username){$userType = 'Instructor';}
-if($admin == $username){$userType = 'Admin';}
+$userType = $_SESSION['userType'];
 
 $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_url, lecture_count
         FROM course NATURAL JOIN (SELECT course_id, AVG(rate) AS rating FROM rating GROUP BY course_id) AS sub1
@@ -67,6 +42,11 @@ if($userType == 'Admin'){//admin
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
             <script defer src="all.js"></script>
             <script defer src="script.js"></script>
+            <script defer src="complaint.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
         <body>
             <div class="topnav">
                 <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -112,8 +92,8 @@ if($userType == 'Admin'){//admin
                                     <h5>Course: <a href="course?courseID=' . $complaint['course_id'] . '">' . $course['course_name'] . '</a></h5>
                                     <p>' . $complaint['reason'] . '</p>
                                     <h5>Answer</h5>
-                                    <textarea class="complaintTextArea"></textarea>
-                                    <button class="btn btn-danger">Solve Complaint</button>
+                                    <textarea id="' . $complaint['user_username'] . '-' . $complaint['course_id'] . '-' . $complaint['title'] . '" class="complaintTextArea"></textarea>
+                                    <button id="' . $complaint['user_username'] . '-' . $complaint['course_id'] . '-' . $complaint['title'] . '" class="btn btn-danger solveButton">Solve Complaint</button>
                                 </div>';
                                 }
                                 

@@ -181,7 +181,7 @@ public class Database{
             "course_id INT,"+
             "discount_amount INT,"+
             "status VARCHAR(32),"+
-            "PRIMARY KEY (admin_username, creator_username),"+
+            "PRIMARY KEY (admin_username, creator_username, course_id),"+
             "FOREIGN KEY (admin_username) REFERENCES siteadmin(username),"+
             "FOREIGN KEY (creator_username) REFERENCES coursecreator(username),"+
             "FOREIGN KEY (course_id) REFERENCES course(course_id))"+

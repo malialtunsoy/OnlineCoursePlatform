@@ -40,7 +40,7 @@ $htmlContainer = '<!DOCTYPE html>
 			<i class="fas fa-search"></i>
 		</button>
 	</form>
-	<a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>Profile</a>
+	<a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . '</a>
 	<a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
 </div>
     	<div class="container">

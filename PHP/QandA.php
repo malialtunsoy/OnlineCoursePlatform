@@ -20,32 +20,7 @@ WHERE username = '$username' and course_id = '$courseID' ";
 $owns = $database->query($query) or die('Error in query: ' . $database->error);
 $ownsData = $owns->fetch_assoc();
 
-$userType;
-
-$query = "	SELECT username
-            FROM user
-            WHERE LOWER(username) = '$username'";
-    
-$user = $database->query($query) or die('Error in the query: ' . $database->error);
-$user = $user->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM coursecreator
-            WHERE LOWER(username) = '$username'";
-    
-$creator = $database->query($query) or die('Error in the query: ' . $database->error);
-$creator = $creator->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM siteadmin
-            WHERE LOWER(username) = '$username'";
-    
-$admin = $database->query($query) or die('Error in the query: ' . $database->error);
-$admin = $admin->fetch_assoc()['username'];
-
-if($user == $username){$userType = 'User';}
-if($creator == $username){$userType = 'Instructor';}
-if($admin == $username){$userType = 'Admin';}
+$userType = $_SESSION['userType'];
 
 $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_url, lecture_count
         FROM course NATURAL JOIN (SELECT course_id, AVG(rate) AS rating FROM rating GROUP BY course_id) AS sub1

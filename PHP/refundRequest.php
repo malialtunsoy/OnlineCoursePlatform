@@ -13,32 +13,7 @@ if(!isset($_SESSION["LOGGEDIN"]) || $_SESSION["LOGGEDIN"] !== true){
 
 $username = $_SESSION['username'];
 
-$userType;
-
-$query = "	SELECT username
-            FROM user
-            WHERE LOWER(username) = '$username'";
-    
-$user = $database->query($query) or die('Error in the query: ' . $database->error);
-$user = $user->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM coursecreator
-            WHERE LOWER(username) = '$username'";
-    
-$creator = $database->query($query) or die('Error in the query: ' . $database->error);
-$creator = $creator->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM siteadmin
-            WHERE LOWER(username) = '$username'";
-    
-$admin = $database->query($query) or die('Error in the query: ' . $database->error);
-$admin = $admin->fetch_assoc()['username'];
-
-if($user == $username){$userType = 'User';}
-if($creator == $username){$userType = 'Instructor';}
-if($admin == $username){$userType = 'Admin';}
+$userType = $_SESSION['userType'];
 
 if($userType == 'Admin'){ //admin
     $htmlContainer = '<!DOCTYPE html>
@@ -50,6 +25,11 @@ if($userType == 'Admin'){ //admin
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
             <script defer src="all.js"></script>
             <script defer src="script.js"></script>
+            <script defer src="refundRequestAdmin.js"></script>
+            <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
         <body>
         <div class="topnav">
                 <p id=name><img class="logo" src="logo.png">  Wan-Shi</p>
@@ -93,8 +73,8 @@ if($userType == 'Admin'){ //admin
                                 <h5>User: <a href="user?id=' . $request['username'] . '">' . $request['username'] . '</a></h5>
                                 <h5>Course: <a href="course?courseID=' . $request['course_id'] . '">' . $course['course_name'] . '</a></h5>
                                 <p>' . $request['reason'] . '</p>
-                                <button class="btn btn-success">Approve Request</button>
-                                <button class="btn btn-danger">Decline Request</button>
+                                <button id="' . $request['username'] . '-' . $request['course_id'] . '" class="btn btn-success approveButton">Approve Request</button>
+                                <button id="' . $request['username'] . '-' . $request['course_id'] . '" class="btn btn-danger declineButton">Decline Request</button>
                             </div>	';
                             }
     

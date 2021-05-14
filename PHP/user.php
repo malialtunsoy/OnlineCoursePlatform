@@ -13,32 +13,7 @@ if(!isset($_SESSION["LOGGEDIN"]) || $_SESSION["LOGGEDIN"] !== true){
 
 $username = $_SESSION['username'];
 $pathUsername = $_GET['id'];
-$userType;
-
-$query = "	SELECT username
-            FROM user
-            WHERE LOWER(username) = '$pathUsername'";
-    
-$user = $database->query($query) or die('Error in the query: ' . $database->error);
-$user = $user->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM coursecreator
-            WHERE LOWER(username) = '$pathUsername'";
-    
-$creator = $database->query($query) or die('Error in the query: ' . $database->error);
-$creator = $creator->fetch_assoc()['username'];
-
-$query = "	SELECT username
-            FROM siteadmin
-            WHERE LOWER(username) = '$pathUsername'";
-    
-$admin = $database->query($query) or die('Error in the query: ' . $database->error);
-$admin = $admin->fetch_assoc()['username'];
-
-if($user == $pathUsername){$userType = 'User';}
-if($creator == $pathUsername){$userType = 'Instructor';}
-if($admin == $pathUsername){$userType = 'Admin';}
+$userType = $_SESSION['userType'];
 
 if($userType == 'User'){ //user
     
@@ -520,6 +495,10 @@ else{ //admin
             <div></div>
             
             <div class="coursesContainer">
+            <div class="lectureHeader">
+                <a href="refundRequest"><button class="btn btn-danger">Refund Requests</button></a></div>
+                <h1></h1>
+            </div>
                 <div class="lectureHeader">
                 </div>';
                 $htmlContainer .= '

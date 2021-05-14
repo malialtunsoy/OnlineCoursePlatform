@@ -34,9 +34,61 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       $username = $_SESSION['username'];
       $active = "ACTIVE";
 
-      $addQuery = "INSERT INTO requestrefund VALUES ('$username', $courseID, '$title', '$reason', '$active');";
-      $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      $query = "	SELECT username
+                  FROM requestrefund
+                  WHERE username = '$username' AND course_id = $courseID";
+              
+      $offer = $database->query($query) or die('Error in the query: ' . $database->error);
+      $offer = $offer->fetch_assoc()['username'];
+      if($offer != $username){
+        $addQuery = "INSERT INTO requestrefund VALUES ('$username', $courseID, '$title', '$reason', '$active');";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      }
+      else{
+        $addQuery = "UPDATE requestrefund SET status = 'ACTIVE', title = '$title', reason = '$reason' WHERE username = '$username' AND course_id = $courseID";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      }
+
+      
     }
+
+    //REFUND REQUEST MANAGE
+    if($_POST['method'] == "refundRequestManage" ){
+      $username = $_SESSION['username'];
+      $user_username = $_POST['username'];
+      $courseID = $_POST['courseID'];
+      $action = $_POST['action'];
+
+      if($action == "APPROVE"){
+        //change request status
+        $addQuery = "UPDATE requestrefund SET status = '$action' WHERE  username = '$user_username' AND course_id = $courseID";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+        
+        //get course price
+        $addQuery = "SELECT course_fee FROM course WHERE course_id = $courseID";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+        $courseFee = $addResponse->fetch_assoc()['course_fee'];
+
+        //change user balance
+        $addQuery = "UPDATE user SET balance = balance + $courseFee WHERE username = '$user_username'";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+
+        //change craeator income
+        $addQuery = "UPDATE coursecreator SET income = income - $courseFee WHERE username = '$user_username'";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+
+        //change owns
+        $addQuery = "DELETE FROM owns WHERE username = '$user_username' AND course_id = $courseID";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      }
+      else{//DECLINE
+        //change request status
+        $addQuery = "UPDATE requestrefund SET status = '$action' WHERE  username = '$user_username' AND course_id = $courseID";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      } 
+    }
+
+
     //ASK A QUESTION
     if($_POST['method'] == "ask" ){
       $title = $_POST['title'];
@@ -157,7 +209,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       }     
     }
 
-    //DISCOUNT OFFER
+    //DISCOUNT OFFER SEND
     if($_POST['method'] == "discount" ){
       $username = $_SESSION['username'];
       $courseID = $_POST['course'];
@@ -166,7 +218,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
       $query = "	SELECT admin_username
                   FROM discountoffer
-                  WHERE LOWER(admin_username) = '$username' AND creator_username = '$creator_username'";
+                  WHERE LOWER(admin_username) = '$username' AND creator_username = '$creator_username' AND course_id = $courseID";
               
       $offer = $database->query($query) or die('Error in the query: ' . $database->error);
       $offer = $offer->fetch_assoc()['admin_username'];
@@ -175,10 +227,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
       }
       else{
-        $addQuery = "UPDATE discountoffer SET discount_amount = $discount WHERE admin_username = '$username' AND creator_username = '$creator_username'";
+        $addQuery = "UPDATE discountoffer SET discount_amount = $discount, status = 'ACTIVE' WHERE admin_username = '$username' AND creator_username = '$creator_username' AND course_id = $courseID";
         $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
       }   
     }
+
+    //DISCOUNT OFFER MANAGE
+    if($_POST['method'] == "discountOffer" ){
+      $username = $_SESSION['username'];
+      $admin = $_POST['admin'];
+      $courseID = $_POST['courseID'];
+      $newPrice = $_POST['newPrice'];
+      $action = $_POST['action'];
+
+      if($action = 'APPROVE'){
+        //change offer status
+        $addQuery = "UPDATE discountoffer SET status = '$action' WHERE admin_username = '$admin' AND creator_username = '$username' AND course_id = $courseID";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+
+        //change course price
+        $addQuery = "UPDATE course SET course_fee = $newPrice WHERE course_id = $courseID";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      }
+      else{
+        //change offer status
+        $addQuery = "UPDATE discountoffer SET status = '$action' WHERE admin_username = '$admin' AND creator_username = '$username' AND course_id = $courseID";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+      } 
+    }
+
     //ANNOUNCEMENT
     if($_POST['method'] == "announcement" ){
       $username = $_SESSION['username'];
@@ -288,7 +365,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //TICKET RESPONSE
+    if($_POST['method'] == "complaint" ){
 
+      $username = $_POST['username'];
+      $courseID = $_POST['courseID'];
+      $title = $_POST['title'];
+      $answer = $_POST['answer'];
+
+      $addQuery = "UPDATE complaint SET answer = '$answer' WHERE user_username = '$username' AND course_id = $courseID AND title = '$title' ";
+      $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+    }
     //DISCOUNT RESPONSE
 
     //SIGNUP
