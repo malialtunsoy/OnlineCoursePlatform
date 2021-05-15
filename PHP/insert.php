@@ -244,7 +244,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
       }   
     }
-
+    
     //DISCOUNT OFFER MANAGE
     if($_POST['method'] == "discountOffer" ){
       $username = $_SESSION['username'];

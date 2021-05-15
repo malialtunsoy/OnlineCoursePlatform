@@ -181,7 +181,7 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                                     <form>
                                         <div class="form-row">
                                             <label>Course Name</label>
-                                            <input class="courseNameEdit" placeholder="' . $courseData['course_name'] . '">
+                                            <input class="courseNameEdit" value="' . $courseData['course_name'] . '">
                                         </div>
                                         <div class="form-row">
                                             <label>Course Price</label>

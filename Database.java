@@ -60,6 +60,8 @@ public class Database{
         stmt.executeUpdate("DROP TABLE IF EXISTS siteadmin;");
         stmt.executeUpdate("DROP TABLE IF EXISTS coursecreator;");
         stmt.executeUpdate("DROP TABLE IF EXISTS account;");
+        stmt.executeUpdate("DROP VIEW  IF EXISTS total_courses;");
+
         System.out.println("Tables dropped.");
         //Create Tables
         System.out.println("\nCreating tables...");
@@ -363,6 +365,12 @@ public class Database{
         "('gokberkboz', 'Im looking for a new python course.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit labore et dolore magna aliqua.', '12:15:54');");
         System.out.println("posts Table Populated.");
 
+        stmt.executeUpdate("CREATE VIEW total_courses AS SELECT COUNT(course_id) AS total_count FROM course;");
+
+        stmt.executeUpdate("ALTER TABLE discountoffer ADD CONSTRAINT status_chk CHECK (status IN ('ACTIVE','APPROVE','DECLINE'));");
+        stmt.executeUpdate("ALTER TABLE requestrefund ADD CONSTRAINT refundstatus_chk CHECK (status IN ('ACTIVE','APPROVE','DECLINE'));");
+        stmt.executeUpdate("ALTER TABLE course ADD CONSTRAINT discount_chk CHECK (discount_allow = 1 OR discount_allow = 0);");
+        stmt.executeUpdate("ALTER TABLE user ADD CONSTRAINT balance_chk CHECK (balance > 0);");
 
 
         System.out.println("=====================================================ACCOUNT=====================================================");  
