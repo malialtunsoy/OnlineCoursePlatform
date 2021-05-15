@@ -24,6 +24,7 @@ $htmlContainer = '<!DOCTYPE html>
 		<script defer src="all.js"></script>
         <script defer src="script.js"></script>
 		<script defer src="share.js"></script>
+		<script defer src="searchBar.js"></script>
 		<script
 		src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -34,12 +35,12 @@ $htmlContainer = '<!DOCTYPE html>
 	<a id="home" href="home"><i class="fas fa-home"></i>Home</a>
 	<a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
 	<a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
-	<form id="searchbar">
-		<input id="searchbarInput" type="text" name="">
-		<button type="submit" name="Search">
-			<i class="fas fa-search"></i>
-		</button>
-	</form>
+	<div id="searchbar">
+                <input id="searchbarInput" class="search" type="text" name="">
+                <button type="submit" class="searchButton" name="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
 	<a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . '</a>
 	<a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
 </div>

@@ -51,6 +51,7 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
                 <script defer src="all.js"></script>
+                <script defer src="searchBar.js"></script>
                 <script defer src="buyCourse.js"></script>
                 <script
                 src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -62,12 +63,12 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                     <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
                     <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
                     <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
-                    <form id="searchbar">
-                        <input id="searchbarInput" type="text" name="">
-                        <button type="submit" name="Search">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </form>
+                    <div id="searchbar">
+                    <input id="searchbarInput" class="search" type="text" name="">
+                    <button type="submit" class="searchButton" name="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
                     <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . ' </a>';
                     if($userType == "User"){
                         $query = "	SELECT balance
@@ -151,7 +152,7 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
                 <script defer src="all.js"></script>
-        
+                <script defer src="searchBar.js"></script>
                 <script defer src="script.js"></script>
                 <script defer src="refundRequest.js"></script>
                 <script
@@ -164,12 +165,12 @@ if($userType == 'User' || $userType == 'Instructor' ){ //user or instructor
                     <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
                     <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
                     <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
-                    <form id="searchbar">
-                        <input id="searchbarInput" type="text" name="">
-                        <button type="submit" name="Search">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </form>
+                    <div id="searchbar">
+                <input id="searchbarInput" class="search" type="text" name="">
+                <button type="submit" class="searchButton" name="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
                     <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . ' </a>';
                     if($userType == "User"){
                         $query = "	SELECT balance
@@ -301,6 +302,7 @@ elseif($userType == 'Admin'){ //admin
                 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
                 <script defer src="all.js"></script>
+                <script defer src="searchBar.js"></script>
                 <script defer src="discount.js"></script>
                 <script
                 src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -312,12 +314,12 @@ elseif($userType == 'Admin'){ //admin
             <a id="home" href="home"><i class="fas fa-home"></i>Home</a>
             <a id="courses" href="courses"><i class="fas fa-book-open"></i>Courses</a>
             <a id="complaint" href="complaint"><i class="fas fa-question-circle"></i>Support</a>
-            <form id="searchbar">
-                <input id="searchbarInput" type="text" name="">
-                <button type="submit" name="Search">
+            <div id="searchbar">
+                <input id="searchbarInput" class="search" type="text" name="">
+                <button type="submit" class="searchButton" name="Search">
                     <i class="fas fa-search"></i>
                 </button>
-            </form>
+            </div>
             <a id="profile" href="user?id=' . $username . '"><i class="fas fa-user"></i>' . $username . ' </a>
             <a id="mycourses" href="mycourses"><i class="fas fa-project-diagram"></i>My Courses</a>
         </div>
