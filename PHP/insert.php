@@ -313,6 +313,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $addQuery = "INSERT INTO course VALUES ($courseID, '$courseName', '$desc', $coursePrice, '$username', $discount)";
         $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
 
+        $addQuery = "INSERT INTO owns VALUES ('$username', $courseID)";
+        $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+
         $lectureID = $courseID * 10000 + 1;
         $addQuery = "INSERT INTO lecture VALUES ($lectureID, 'My First Lecture', 1, 'Please Edit Me', 'cpP-fCo8Dn4', $courseID)";
         $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
@@ -399,6 +402,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       $password = $_POST['password'];
 
       $addQuery = "INSERT INTO account VALUES ('$username','$password','$email')";
+      $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+
+      $addQuery = "INSERT INTO follows VALUES ('$username','$username')";
       $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
 
       if($userType == "USER"){//user

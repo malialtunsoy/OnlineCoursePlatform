@@ -127,7 +127,7 @@ public class Database{
             "username VARCHAR(32),"+
             "course_id INT,"+
             "PRIMARY KEY (username, course_id),"+
-            "FOREIGN KEY (username) REFERENCES user(username),"+
+            "FOREIGN KEY (username) REFERENCES account(username),"+
             "FOREIGN KEY (course_id) REFERENCES course(course_id))"+
             "ENGINE=innodb;");
         System.out.println("owns table created.");

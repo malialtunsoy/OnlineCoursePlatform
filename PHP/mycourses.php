@@ -22,17 +22,6 @@ WHERE course_id IN (SELECT course_id FROM owns WHERE username = '$username')";
 
 $response = $database->query($query) or die('Error in query: ' . $database->error);
 
-$query = "SELECT course_id, COUNT(lecture_id) AS wathcedLectures 
-              FROM (SELECT course_id, lecture_id 
-                    FROM course NATURAL JOIN lecture 
-                    WHERE lecture_id IN (SELECT lecture_id FROM watched WHERE username = '$username')) AS sub1
-              GROUP BY course_id;";
-
-$wathcedLectures = $database->query($query) or die('Error in query: ' . $database->error);
-$wathcedLectures = $wathcedLectures->fetch_assoc()['wathcedLectures'];
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +73,17 @@ $wathcedLectures = $wathcedLectures->fetch_assoc()['wathcedLectures'];
                                     $htmlContainer .= '<span class="fa fa-star"></span>';
                                 }
                             }
+                            
+                            $curCourseId = $course['course_id'];
+                            $query = "SELECT course_id, COUNT(lecture_id) AS wathcedLectures 
+                                        FROM (SELECT course_id, lecture_id 
+                                        FROM course NATURAL JOIN lecture 
+                                        WHERE course_id = '$curCourseId' AND (lecture_id IN (SELECT lecture_id FROM watched WHERE username = '$username')) ) AS sub;";
+
+                            $wathcedLectures = $database->query($query) or die('Error in query: ' . $database->error);
+                            $wathcedLectures = $wathcedLectures->fetch_assoc()['wathcedLectures'];
+
+
                              $htmlContainer .= '<p></p>';
                              if($wathcedLectures == $course['lecture_count']){
                                 $htmlContainer .= '<a href="certificate?courseID=' . $course['course_id'] . '"><button class="btn btn-danger">Get Certificate</button></a>';
