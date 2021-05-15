@@ -146,8 +146,8 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
                 <script defer src="all.js"></script>
                 <script defer src="script.js"></script>
-                <script defer src="questionInst.js"></script>
                 <script defer src="searchBar.js"></script>
+                <script defer src="answerQuestion.js"></script>
             <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -186,7 +186,7 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                             WHERE course_id = '$courseID'";
     
                             $questions = $database->query($query) or die('Error in query: ' . $database->error);
-    
+                            $index = 0; 
                             while ($question = $questions->fetch_assoc()){ 
                                 if($question['answer_time'] == NULL){
                                     $htmlContainer .= '
@@ -199,12 +199,12 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                                         </div>
                                         <div class="answer">
                                             <h5>Answer</h5>
-                                            <textarea class="complaintTextArea"></textarea>
-                                            <button class="btn btn-primary">Answer</button>
+                                            <textarea id="i' . $index . '" class="complaintTextArea"></textarea>
+                                            <button id="' . $question['username'] . '-' . $question['question_time'] . '-i' . $index .'" class="btn btn-primary answerButton">Answer</button>
                                         </div>
                                     </div>';
                                 }
-                               
+                               $index = $index + 1;
                             }
     
                             $htmlContainer .= '

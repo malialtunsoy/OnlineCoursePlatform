@@ -100,11 +100,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       $courseID = $_POST['course'];
       $question = $_POST['question'];
       $username = $_SESSION['username'];
-      $active = "ACTIVE";
 
       $addQuery = "INSERT INTO question VALUES ($courseID , '$username', '$title', '$question', NULL , CURRENT_TIMESTAMP  ,NULL);";
       $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
     }
+
+    //ANSWER A QUESTION
+    if($_POST['method'] == "questionAnswer" ){
+      $courseID = $_POST['course'];
+      $user_username = $_POST['username'];
+      $time = $_POST['time'];
+      $answer = $_POST['answer'];
+
+      $addQuery = "UPDATE question SET answer = '$answer', answer_time = CURRENT_TIMESTAMP WHERE username = '$user_username' and course_id = $courseID and question_time = '$time'";
+      $addResponse = $database->query($addQuery) or die('Error in deleteQuery: ' . $database->error);
+    }
+
     //BUY COURSE
     if($_POST['method'] == "buy" ){
       $fee = $_POST['fee'];
