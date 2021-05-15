@@ -206,7 +206,7 @@ $query = "	SELECT course_name, course_desc, course_fee, username, rating, video_
                                 }
                                $index = $index + 1;
                             }
-    
+                            
                             $htmlContainer .= '
                         </div>
                             

@@ -372,6 +372,8 @@ public class Database{
         stmt.executeUpdate("ALTER TABLE course ADD CONSTRAINT discount_chk CHECK (discount_allow = 1 OR discount_allow = 0);");
         stmt.executeUpdate("ALTER TABLE user ADD CONSTRAINT balance_chk CHECK (balance > 0);");
 
+        
+        stmt.executeUpdate("CREATE TRIGGER watched_check AFTER INSERT ON discountoffer FOR EACH ROW BEGIN IF EXISTS(SELECT * FROM course WHERE course_id = NEW.course_id AND NEW.discount_amount > course_fee) THEN DELETE FROM discountoffer WHERE discount_amount = NEW.discount_amount AND course_id = NEW.course_id; END IF; END;");
 
         System.out.println("=====================================================ACCOUNT=====================================================");  
         System.out.printf("%12s |%12s |%12s \n", "username", "password", "email");
