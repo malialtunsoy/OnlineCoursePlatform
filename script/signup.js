@@ -31,6 +31,7 @@ signupButton.addEventListener("click", function(){
                                 //do what you want here...
                 }
     });
+    alert("Hello " + username);
     window.location.href = "index";
     
 })

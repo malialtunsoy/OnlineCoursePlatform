@@ -1,5 +1,5 @@
 var solveButton = document.querySelectorAll(".solveButton");
-
+console.log("complaints");
 for(var i=0; i<solveButton.length; i++){
     
     solveButton[i].id = solveButton[i].getAttribute("id");
@@ -9,7 +9,7 @@ for(var i=0; i<solveButton.length; i++){
     var username = id[0];
     var courseID = id[1];
     var title = id[2];
-
+    console.log(e.currentTarget.id);
     var answer = document.querySelector("#"+e.currentTarget.id).value;
 
     $.ajax({

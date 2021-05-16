@@ -118,7 +118,7 @@ public class Database{
             "username VARCHAR(32),"+
             "course_id INT,"+
             "PRIMARY KEY (username, course_id),"+
-            "FOREIGN KEY (username) REFERENCES user(username),"+
+            "FOREIGN KEY (username) REFERENCES account(username),"+
             "FOREIGN KEY (course_id) REFERENCES course(course_id))"+
             "ENGINE=innodb;");
         System.out.println("wishes table created.");
@@ -255,9 +255,11 @@ public class Database{
         System.out.println("\nPopulating Tables...");   
         stmt.executeUpdate("INSERT INTO account VALUES" + 
         "('malialtunsoy', 'password', 'mali@mail.com'), " +
+        "('john', 'password', 'john@mail.com'), " +
         "('daniel', 'password', 'daniel@mail.com'), " +
         "('mali', 'password', 'maliadmin@mail.com'), " +
-        "('kutay', 'password', 'kutay@mail.com'), " +
+        "('admin', 'password', 'admin@mail.com'), " +
+        "('leonard', 'password', 'leonard@mail.com'), " +
         "('gizemkaral', 'password', 'gizem@mail.com'), " +
         "('gokberkboz', 'password', 'gokberk@mail.com'), " +
         "('irmakceliker', 'password', 'irmak@mail.com'); ");
@@ -265,41 +267,60 @@ public class Database{
 
         stmt.executeUpdate("INSERT INTO user VALUES" + 
         "('malialtunsoy', 1000), " +
-        "('kutay', 1000), " +
+        "('john', 1000), " +
         "('gokberkboz', 1000), " +
         "('irmakceliker', 1000); ");
         System.out.println("user Table Populated.");   
 
         stmt.executeUpdate("INSERT INTO siteadmin VALUES" + 
-        "('mali'); ");
+        "('mali'),('admin'); ");
         System.out.println("siteadmin Table Populated.");   
 
         stmt.executeUpdate("INSERT INTO coursecreator VALUES" + 
         "('daniel', 1000), " +
+        "('leonard', 700), " +
         "('gizemkaral', 500); ");
         System.out.println("coursecreator Table Populated.");
 
         stmt.executeUpdate("INSERT INTO course VALUES" + 
-        "(1, 'Python Tutorial', 'This is a Python Course', 25, 'gizemkaral', 0), "+
-        "(2, 'Web Design', 'This is a Web Design Course', 19, 'daniel', 1); ");
+        "(1, 'Python Tutorial', 'This is a Python Course', 25, 'gizemkaral', 1), "+
+        "(2, 'Web Desig Tutorial', 'This is a Web Design Course', 16, 'daniel', 0), "+
+        "(3, 'Calculus I', 'This is an calculus I course.', 32, 'leonard', 1), "+
+        "(4, 'Calculus II', 'This is an calculus II course.', 55, 'leonard', 0); ");
         System.out.println("course Table Populated.");
 
         stmt.executeUpdate("INSERT INTO lecture VALUES" + 
-        "(10001, 'Loops', 1, 'Introduction to Loops', '_uQrJ0TkZlc' ,1), "+
-        "(10002, 'Variables', 2, 'Introduction to Variables', '_uQrJ0TkZlc' ,1), "+
-        "(10003, 'Data Types', 3, 'Introduction to Data Types', '_uQrJ0TkZlc' ,1), "+
-        "(20001, 'Intro to PHP', 1, 'Introduction to PHP', 'C72WkcUZvco' ,2), " +
-        "(20002, 'Intro to JS', 2, 'Introduction to JS', 'C72WkcUZvco' ,2); ");
+        "(10001, 'Strings', 1, 'Introduction to Strings', 'k9TUPpGqYTo' ,1), "+
+        "(10002, 'Integers', 2, 'Introduction to Integers', 'khKv-8q7YmY' ,1), "+
+        "(10003, 'Lists and Tuples', 3, 'Introduction to Data T', 'W8KRzm-HUcc' ,1), "+
+        "(10004, 'Dictionaries', 4, 'Introduction to Dictionaries', 'daefaLgNkw0' ,1), "+
+        "(10005, 'Conditionals', 5, 'Introduction to Conditionals', 'DZwmZ8Usvnk' ,1), "+
+        "(30001, 'Lines', 1, 'Introduction to Lines', 'fYyARMqiaag' ,3), "+
+        "(30002, 'Functions', 2, 'Introduction to Functions', '1EGFSefe5II' ,3), "+
+        "(30003, 'Trigonometry', 3, 'Introduction to Trigonometry', 'SzLF-wLZF_I' ,3), "+
+        "(30004, 'Combining Functions', 4, 'Introduction to Combining', 'f-_UsIP5jyA' ,3), "+
+        "(40001, 'Log Function', 1, 'Introduction to Log Function', 'H9eCT6f_Ftw' ,4), "+
+        "(40002, 'Inverse Functions', 2, 'Introduction to Inverse Functions', 'H9eCT6f_Ftw' ,4), "+
+        "(40003, 'Derivatives and Integrals', 3, 'Introduction to Derivatives and Integrals', '5HlW7OnXUT4' ,4), "+
+        "(40004, 'General Exponential Function', 4, 'Introduction to Gen Exp Functions', 'rR8imSHCuFk' ,4), "+
+        "(40005, 'Inverse Trigonometric Functions', 5, 'Introduction to Inverse Functions', 'ST3ORfqVYQw' ,4), "+
+        "(20001, 'Learn Web Design', 1, 'Introduction to web design', 'C72WkcUZvco' ,2), " +
+        "(20002, 'Web Design Softwares', 2, 'Introduction to softwares', 'R_gFhRsWLMw' ,2), " +
+        "(20003, 'History of Webdesign', 3, 'Introduction to history of web design', 'mQeplLGXIY4' ,2); ");
         System.out.println("lecture Table Populated.");
 
         stmt.executeUpdate("INSERT INTO rating VALUES" + 
-        "('malialtunsoy', 1, 4), "+
-        "('gokberkboz', 2, 1);");
+        "('john', 1, 4), "+
+        "('john', 3, 4), "+
+        "('john', 4, 2), "+
+        "('john', 2, 1);");
         System.out.println("rating Table Populated.");
 
         stmt.executeUpdate("INSERT INTO owns VALUES" + 
         "('malialtunsoy', 1), "+
         "('malialtunsoy', 2), "+
+        "('irmakceliker', 1), "+
+        "('gizemkaral', 3), "+
         "('gokberkboz', 2);");
         System.out.println("owns Table Populated.");
 
@@ -313,7 +334,11 @@ public class Database{
 
         stmt.executeUpdate("INSERT INTO announces VALUES" + 
         "(1, 'New Lecture', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.', '12:00:00', 'gizemkaral'), "+
-        "(1, 'Correction on Lecture 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.', '12:00:10', 'gizemkaral');");
+        "(1, 'Correction', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.', '12:18:00', 'gizemkaral'), "+
+        "(2, 'New Lecture', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.', '14:15:25', 'daniel'), "+
+        "(2, 'New Lecture', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.', '17:51:00', 'daniel'), "+
+        "(3, 'Hi eveybody', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.', '19:35:58', 'leonard'), "+
+        "(4, 'Correction on Lecture 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.', '12:00:10', 'leonard');");
         System.out.println("announces Table Populated.");
 
         stmt.executeUpdate("INSERT INTO notes VALUES" + 
@@ -323,7 +348,9 @@ public class Database{
 
         stmt.executeUpdate("INSERT INTO wishes VALUES" + 
         "('gokberkboz', 1), "+
-        "('malialtunsoy', 2);");
+        "('gizemkaral', 4), "+
+        "('irmakceliker', 4), "+
+        "('malialtunsoy', 3);");
         System.out.println("wishes Table Populated.");
 
         stmt.executeUpdate("INSERT INTO follows VALUES" + 
@@ -332,6 +359,7 @@ public class Database{
         "('irmakceliker', 'irmakceliker'), "+
         "('gizemkaral', 'gizemkaral'), "+
         "('daniel', 'daniel'), "+
+        "('john', 'john'), "+
         "('gokberkboz', 'irmakceliker'), "+
         "('malialtunsoy', 'gokberkboz'), "+
         "('malialtunsoy', 'gizemkaral'), "+
@@ -356,13 +384,15 @@ public class Database{
         System.out.println("discountoffer Table Populated.");*/
 
         stmt.executeUpdate("INSERT INTO complaint VALUES" + 
-        "('daniel', NULL, 2, 'Payment Problem', 'I cannot withdraw money from the system.', NULL),"+
-        "('malialtunsoy', NULL, 1, 'Videos are Freezing', 'Videos are freezing while watching.', NULL);");
+        "('daniel', NULL, 2, 'Payment', 'I cannot withdraw money from the system.', NULL),"+
+        "('malialtunsoy', NULL, 1, 'Freezing', 'Videos are freezing while watching.', NULL);");
         System.out.println("complaint Table Populated.");
 
         stmt.executeUpdate("INSERT INTO posts VALUES" + 
-        "('irmakceliker', 'I learned Java today', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '21:30:21'),"+
-        "('gokberkboz', 'Im looking for a new python course.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit labore et dolore magna aliqua.', '12:15:54');");
+        "('irmakceliker', 'I learned Java today', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '12:30:21'),"+
+        "('malialtunsoy', 'Whats upp?', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '13:42:21'),"+
+        "('gizemkaral', 'Check my new course', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '14:42:25'),"+
+        "('gokberkboz', 'Im looking for a new python course.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit labore et dolore magna aliqua.', '17:15:54');");
         System.out.println("posts Table Populated.");
 
         stmt.executeUpdate("CREATE VIEW total_courses AS SELECT COUNT(course_id) AS total_count FROM course;");

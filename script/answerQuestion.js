@@ -23,7 +23,7 @@ for(var i=0; i<answerButton.length; i++){
                                 //do what you want here...
                 }
     });
-    alert(username + " " + courseID + " " + time + " " + answer);
+    //alert(username + " " + courseID + " " + time + " " + answer);
     location.reload();
     
 })
