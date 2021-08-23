@@ -9,10 +9,10 @@ public class Database{
         e.printStackTrace();
     }
 
-    final String USERNAME = "ali.altunsoy";
-    final String PASSWORD = "WkhYQAxv";
-    final String DBNAME = "ali_altunsoy";
-    final String URL = "jdbc:mysql://dijkstra.ug.bcc.bilkent.edu.tr/" + DBNAME;
+    final String USERNAME = "YOUR USERNAME";
+    final String PASSWORD = "YOUR PASSWORD";
+    final String DBNAME = "YOUR DATABASE NAME";
+    final String URL = "YOUR URL" + DBNAME;
 
     Connection connection = null;
     try{
@@ -112,6 +112,7 @@ public class Database{
             "course_id INT,"+
             "FOREIGN KEY (course_id) REFERENCES course(course_id))"+
             "ENGINE=innodb;");
+            stmt.executeUpdate("CREATE INDEX l_index ON lecture(lecture_index);");
         System.out.println("lecture table created.");
 
         stmt.executeUpdate("CREATE TABLE wishes ("+
